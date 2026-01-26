@@ -6,11 +6,10 @@ export const POST = async (req: NextRequest) => {
   try {
     const body = await req.json()
     const backendRes = await axios.post(
-      `${process.env.BACKEND_API}/user/login`,
+      `${process.env.BACKEND_API}/user/register`,
        body
-    ); 
-      const cks = await cookies();
-      cks.set("token", backendRes.data.token);
+    );
+    
     return NextResponse.json(
       backendRes.data,
       {status: 200}
