@@ -9,7 +9,6 @@ export const POST = async (req: NextRequest) => {
       `${process.env.BACKEND_API}/user/register`,
        body
     );
-    
     return NextResponse.json(
       backendRes.data,
       {status: 200}
