@@ -1,5 +1,6 @@
 "use client";
 
+import axios from 'axios';
 import React from 'react';
 import {useForm} from 'react-hook-form';
 import { BiLogIn } from 'react-icons/bi';
@@ -12,10 +13,17 @@ type LoginForm = {
 
 const page = () => {
 
-  const {register, handleSubmit, formState} = useForm<LoginForm>();
+  const {register, handleSubmit, formState, setError} = useForm<LoginForm>();
 
-  const onSubmit = (data: LoginForm) => {
-    console.log(data);
+  const onSubmit = async (data: LoginForm) => {
+    try {
+      const res = await axios.post(`/api/auth/login`, {
+       email: data.email,
+       password: data.password 
+      })
+    } catch (err) {
+      console.log(err)
+    }
   }
 
 
