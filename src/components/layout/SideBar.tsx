@@ -1,6 +1,8 @@
 import React from 'react'
 import SidebarButton from './SidebarButton'
-import { FaHome } from 'react-icons/fa'
+import { FaHome, FaUsers } from 'react-icons/fa'
+import { LuBookMarked, LuLogOut, LuSettings } from 'react-icons/lu'
+import { CiSettings } from 'react-icons/ci'
 
 const SideBar = () => {
   return (
@@ -15,8 +17,23 @@ const SideBar = () => {
         linkTo='/'
       />
       <SidebarButton
-        IconComp={FaHome}
-        btnTitle='Home Page'
+        IconComp={FaUsers}
+        btnTitle='Following'
+        linkTo='/'
+      />
+      <SidebarButton
+        IconComp={LuBookMarked}
+        btnTitle='Bookmarks'
+        linkTo='/'
+      />
+      <SidebarButton
+        IconComp={LuSettings}
+        btnTitle='Settings'
+        linkTo='/'
+      />
+      <SidebarButton
+        IconComp={LuLogOut}
+        btnTitle='Logout'
         linkTo='/'
       />
 
