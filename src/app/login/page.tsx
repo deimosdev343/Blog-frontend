@@ -1,8 +1,60 @@
-import React from 'react'
+"use client";
+
+import React from 'react';
+import {useForm} from 'react-hook-form';
+import { BiLogIn } from 'react-icons/bi';
+import { FaFlorinSign } from 'react-icons/fa6';
+
+type LoginForm = {
+  email: string,
+  password: string
+}
 
 const page = () => {
+
+  const {register, handleSubmit, formState} = useForm<LoginForm>();
+
+  const onSubmit = (data: LoginForm) => {
+    console.log(data);
+  }
+
+
   return (
-    <div>page</div>
+    <div className='w-full h-screen flex flex-col items-center justify-center bg-slate-200'>
+      <div 
+        className='w-[30%] h-[50%] shadow-xl border border-slate-200 bg-white
+          rounded-xl flex flex-col justify-center p-5'
+      >
+        <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col w-full items-center gap-4 '>
+          <div className='w-[60%] flex flex-col items-center'>
+            <p className='font-bold text-xl '>Email</p>
+            <input 
+
+              {...register("email", { required: true })}
+              className='border p-2 rounded-md w-full' 
+            />
+          </div>
+          <div className='w-[60%] flex flex-col items-center'>
+            <p className='font-bold text-xl'>
+              Password
+            </p>
+            <input
+              className='border p-2 rounded-md w-full' 
+              type="password" 
+              {...register("password", { required: true })} 
+            />
+          </div>
+
+          <button 
+            disabled={formState.isSubmitting}
+            className='flex p-2 rounded gap-2 border '  
+          >
+            <BiLogIn size={25}/>
+            Login
+          </button>
+        </form>
+      </div>
+    </div>
   )
 }
 
