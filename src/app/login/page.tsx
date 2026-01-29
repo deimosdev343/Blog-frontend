@@ -39,8 +39,8 @@ const page = () => {
   return (
     <div className='w-full h-screen flex flex-col items-center justify-center bg-slate-200'>
       <div 
-        className='w-[30%] h-[50%] shadow-xl border border-slate-200 bg-white
-          rounded-xl flex flex-col justify-center p-5'
+        className='w-[70%] md:w-[50%] lg:w-[30%] h-[80%] lg:h-[50%] shadow-xl border border-slate-200 bg-white
+          rounded-xl flex flex-col justify-center p-5 overflow-scroll'
       >
         <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col w-full items-center gap-4 '>
           <div className='w-[60%] flex flex-col items-center'>
@@ -70,7 +70,7 @@ const page = () => {
 
           <button 
             disabled={formState.isSubmitting}
-            className='flex p-2 rounded gap-2 border '  
+            className='flex p-2 rounded gap-2 border cursor-pointer hover:bg-slate-200 transition-all duration-200'  
           >
             <BiLogIn size={25}/>
             Login
