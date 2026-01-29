@@ -1,6 +1,9 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
+type ApiResponseError = {
+  msg: string
+}
 
 export const POST = async (req: NextRequest) => {
   try {
@@ -17,9 +20,11 @@ export const POST = async (req: NextRequest) => {
     )
   } catch (err) {
     console.log(err);
-    return NextResponse.json(
-      {msg:"Internal Server Error"}, 
-      {status:500}
-    );
+        const axErr = err as AxiosError<ApiResponseError>;
+    
+        return NextResponse.json(
+          {msg:axErr.response?.data?.msg || "Internal Server Error"}, 
+          {status:axErr.response?.status || 500}
+        );
   }
 }
