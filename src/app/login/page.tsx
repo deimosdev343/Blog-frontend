@@ -29,6 +29,9 @@ const page = () => {
       const axErr = err as AxiosError<ApiResponseError>;
       console.log(axErr.response?.data?.msg);
       if(axErr.response?.data?.msg) setApiError(axErr.response.data.msg)
+      setTimeout(() => {
+        setApiError("")
+      }, 3500);
     }
   }
 
@@ -72,6 +75,7 @@ const page = () => {
             <BiLogIn size={25}/>
             Login
           </button>
+          <p className='text-red-500 font-semibold text-lg'>{apiError}</p>
         </form>
       </div>
     </div>
