@@ -1,7 +1,8 @@
 "use client";
 
-import axios from 'axios';
-import React from 'react';
+import axios, { AxiosError } from 'axios';
+import { NextApiResponse } from 'next';
+import React, { useState } from 'react';
 import {useForm} from 'react-hook-form';
 import { BiLogIn } from 'react-icons/bi';
 import { FaFlorinSign } from 'react-icons/fa6';
@@ -11,10 +12,13 @@ type LoginForm = {
   password: string
 }
 
+type ApiResponseError = {
+  msg: string
+}
 const page = () => {
 
   const {register, handleSubmit, formState, setError} = useForm<LoginForm>();
-
+  const [apiError, setApiError] = useState("");
   const onSubmit = async (data: LoginForm) => {
     try {
       const res = await axios.post(`/api/auth/login`, {
@@ -22,11 +26,13 @@ const page = () => {
        password: data.password 
       })
     } catch (err) {
-      console.log(err)
+      const axErr = err as AxiosError<ApiResponseError>;
+      console.log(axErr.response?.data?.msg);
+      if(axErr.response?.data?.msg) setApiError(axErr.response.data.msg)
     }
   }
 
-
+  console.log(formState.errors)
   return (
     <div className='w-full h-screen flex flex-col items-center justify-center bg-slate-200'>
       <div 
@@ -41,11 +47,17 @@ const page = () => {
               {...register("email", { required: true })}
               className='border p-2 rounded-md w-full' 
             />
+            {formState.errors.email?.type === "required" && <h2 className='text-red-500 font-semibold text-lg'>
+              email Required
+            </h2>}
           </div>
           <div className='w-[60%] flex flex-col items-center'>
             <p className='font-bold text-xl'>
               Password
             </p>
+            {formState.errors.password?.type === "required" && <h2 className='text-red-500 font-semibold text-lg'>
+              password Required
+            </h2>}
             <input
               className='border p-2 rounded-md w-full' 
               type="password" 
