@@ -20,11 +20,11 @@ export const POST = async (req: NextRequest) => {
        
     ); 
     const cks = await cookies();
-    cks.set("token", backendRes.data.token);
+    cks.set("token", backendRes.data.access_token);
     return NextResponse.json(
       backendRes.data,
       {status: 200}
-    )
+    );
   } catch (err) {
     console.log(err);
         const axErr = err as AxiosError<ApiResponseError>;

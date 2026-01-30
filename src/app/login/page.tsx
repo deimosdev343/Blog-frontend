@@ -1,11 +1,15 @@
 "use client";
 
+import { loginUser, useAppDispatch } from '@/lib/store';
 import axios, { AxiosError } from 'axios';
 import { NextApiResponse } from 'next';
+import { useRouter } from 'next/navigation';
+
 import React, { useState } from 'react';
 import {useForm} from 'react-hook-form';
 import { BiLogIn } from 'react-icons/bi';
 import { FaFlorinSign } from 'react-icons/fa6';
+
 
 type LoginForm = {
   username: string,
@@ -16,15 +20,18 @@ type ApiResponseError = {
   msg: string
 }
 const page = () => {
-
+  const dispatch = useAppDispatch()
   const {register, handleSubmit, formState, setError} = useForm<LoginForm>();
   const [apiError, setApiError] = useState("");
+  const router = useRouter()
   const onSubmit = async (data: LoginForm) => {
     try {
       const res = await axios.post(`/api/auth/login`, {
        username: data.username,
        password: data.password 
       })
+      dispatch(loginUser(res.data.user_data));
+      router.push('/');
     } catch (err) {
       const axErr = err as AxiosError<ApiResponseError>;
       console.log(axErr.response?.data?.msg);
