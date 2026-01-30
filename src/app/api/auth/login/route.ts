@@ -8,13 +8,10 @@ type ApiResponseError = {
 export const POST = async (req: NextRequest) => {
   try {
     const body = await req.json()
-    let data = JSON.stringify({
-      "username": "testuser",
-      "password": "test"
-    });
+    
     const backendRes = await axios.post(
       `${process.env.BACKEND_API}/user/login`,
-       data,
+       body,
        {
         headers: {
           "Content-Type": "application/json",
