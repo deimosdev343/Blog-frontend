@@ -8,7 +8,7 @@ import { BiLogIn } from 'react-icons/bi';
 import { FaFlorinSign } from 'react-icons/fa6';
 
 type LoginForm = {
-  email: string,
+  username: string,
   password: string
 }
 
@@ -22,7 +22,7 @@ const page = () => {
   const onSubmit = async (data: LoginForm) => {
     try {
       const res = await axios.post(`/api/auth/login`, {
-       email: data.email,
+       username: data.username,
        password: data.password 
       })
     } catch (err) {
@@ -44,13 +44,13 @@ const page = () => {
       >
         <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col w-full items-center gap-4 '>
           <div className='w-[60%] flex flex-col items-center'>
-            <p className='font-bold text-xl '>Email</p>
+            <p className='font-bold text-xl '>Username</p>
             <input 
 
-              {...register("email", { required: true })}
+              {...register("username", { required: true })}
               className='border p-2 rounded-md w-full' 
             />
-            {formState.errors.email?.type === "required" && <h2 className='text-red-500 font-semibold text-lg'>
+            {formState.errors.username?.type === "required" && <h2 className='text-red-500 font-semibold text-lg'>
               email Required
             </h2>}
           </div>
