@@ -35,7 +35,6 @@ export default async function RootLayout({
         Authorization: `bearer ${token}`
       }
     });
-    console.log(res);
     user = res.data;
     
   } catch (err) {
