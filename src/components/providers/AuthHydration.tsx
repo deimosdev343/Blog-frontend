@@ -16,7 +16,7 @@ const AuthHydration = ({user} : {user?: UserDataPayload}) => {
     }
   }, [dispatch, user]);
   return (
-    <div>AuthHydration</div>
+    <></>
   )
 }
 
