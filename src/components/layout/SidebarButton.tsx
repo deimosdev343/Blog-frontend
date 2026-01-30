@@ -1,3 +1,5 @@
+"use client";
+
 import Link from 'next/link'
 import React from 'react'
 import { IconBase, IconType } from 'react-icons'
@@ -6,12 +8,19 @@ interface sbtnProps {
   linkTo: string,
   IconComp: IconType,
   btnTitle: string
+  onClickFunc?: Function
 }
 
-const SidebarButton = ({linkTo, IconComp, btnTitle} : sbtnProps) => {
+const SidebarButton = ({linkTo, IconComp, btnTitle, onClickFunc} : sbtnProps) => {
   return (
     <Link 
-      href={linkTo} 
+      href={linkTo}
+      onClick={() => {
+        console.log(onClickFunc)
+        if(onClickFunc) {
+          onClickFunc()
+        }
+      }}
       className='flex flex-col items-center p-3  gap-2 justify-between  
         border-gray-600 rounded-2xl w-[80%] hover:bg-gray-200 transition-all duration-300'
     >

@@ -5,13 +5,23 @@ import SidebarButton from './SidebarButton'
 import { FaHome, FaUsers } from 'react-icons/fa'
 import { LuBookMarked, LuLogOut, LuSettings } from 'react-icons/lu'
 import { CiSettings } from 'react-icons/ci'
-import { useAppSelector } from '@/lib/store';
+import { logoutUser, useAppDispatch, useAppSelector } from '@/lib/store';
 import { BiLogIn } from 'react-icons/bi';
 import { FaNoteSticky } from 'react-icons/fa6';
+import axios from 'axios';
 
 const SideBar = () => {
   const user = useAppSelector(state => state.userData);
-
+  const dispatch = useAppDispatch();
+  const logout = async () => {
+    console.log('enter')
+    try {
+      const res = await axios.get(`/api/auth/logout`);
+      dispatch(logoutUser());
+    } catch (err) {
+      console.log(err);
+    }    
+  }
   return (
     <div className='h-full w-[15%] hidden md:flex flex-col p-2 gap-2 items-center border-r-2 bg-gray-100 border-slate-200'>
       <div className='w-full flex items-center justify-center border-b-2 border-gray-500 p-2'>
@@ -47,11 +57,16 @@ const SideBar = () => {
         IconComp={LuLogOut}
         btnTitle='Logout'
         linkTo='/'
+        onClickFunc={() => {
+          console.log("enter")
+          logout()
+        }}
       />}
       {!user.loggedIn && <SidebarButton
         IconComp={BiLogIn}
         btnTitle='Login'
         linkTo='/login'
+        
       />}
 
 
