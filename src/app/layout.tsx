@@ -4,6 +4,7 @@ import "./globals.css";
 import ReduxProvider from "@/components/providers/ReduxProvider";
 import axios from "axios";
 import { cookies } from "next/headers";
+import AuthHydration from "@/components/providers/AuthHydration";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,6 +26,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  let user;
   const cks = await cookies();
   const token =  cks.get("token")?.value;
   try {
@@ -34,10 +36,12 @@ export default async function RootLayout({
       }
     });
     console.log(res);
+    user = res.data;
     
   } catch (err) {
     console.log(err)
   }
+
 
   return (
     <html lang="en">
@@ -45,6 +49,7 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-700`}
       > 
         <ReduxProvider>
+          <AuthHydration user={user}/>
           {children}
         </ReduxProvider>
       </body>
