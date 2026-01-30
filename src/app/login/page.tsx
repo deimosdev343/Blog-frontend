@@ -3,6 +3,7 @@
 import { loginUser, useAppDispatch } from '@/lib/store';
 import axios, { AxiosError } from 'axios';
 import { NextApiResponse } from 'next';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import React, { useState } from 'react';
@@ -42,7 +43,6 @@ const page = () => {
     }
   }
 
-  console.log(formState.errors)
   return (
     <div className='w-full h-screen flex flex-col items-center justify-center bg-slate-200'>
       <div 
@@ -83,6 +83,9 @@ const page = () => {
             Login
           </button>
           <p className='text-red-500 font-semibold text-lg'>{apiError}</p>
+          <div className='p-2 flex items-center w-full justify-center'>
+              <p className='flex gap-1'>Don't have an account? <Link href={'/register'} className='text-blue-500' >Register</Link></p>
+          </div>
         </form>
       </div>
     </div>
