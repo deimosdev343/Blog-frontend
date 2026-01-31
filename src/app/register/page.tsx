@@ -1,6 +1,7 @@
 "use client";
 
 import axios, { AxiosError } from 'axios';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import React, { useState } from 'react'
@@ -111,7 +112,11 @@ const page = () => {
             <BiLogIn size={25}/>
             Register
           </button>
+          <div className='p-2 flex items-center w-full justify-center'>
+            <p className='flex gap-1'>Already have an account? <Link href={'/login'} className='text-blue-500' >Login</Link></p>
+          </div>
         </form>
+
       </div>
     </div>
   )
