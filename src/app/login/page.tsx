@@ -58,7 +58,7 @@ const page = () => {
               className='border p-2 rounded-md w-full' 
             />
             {formState.errors.username?.type === "required" && <h2 className='text-red-500 font-semibold text-lg'>
-              email Required
+              username Required
             </h2>}
           </div>
           <div className='w-[60%] flex flex-col items-center'>
