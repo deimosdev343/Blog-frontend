@@ -80,7 +80,9 @@ const page = () => {
             className='flex p-2 rounded gap-2 border cursor-pointer hover:bg-slate-200 transition-all duration-200'  
           >
             <BiLogIn size={25}/>
-            Login
+            <p className='text-md font-bold'>
+              Login
+            </p>
           </button>
           <p className='text-red-500 font-semibold text-lg'>{apiError}</p>
           <div className='p-2 flex items-center w-full justify-center'>

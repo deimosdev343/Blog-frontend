@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { BiLogIn } from 'react-icons/bi';
+import { RiUserReceivedFill } from 'react-icons/ri';
 type registerForm = {
   username: string,
   email: string,
@@ -107,10 +108,12 @@ const page = () => {
           </div>
           <button 
             disabled={formState.isSubmitting}
-            className='flex p-2 rounded gap-2 border cursor-pointer hover:bg-slate-200 transition-all duration-200'  
+            className='flex items-center p-3 rounded gap-2 border cursor-pointer hover:bg-slate-200 transition-all duration-200'  
           >
-            <BiLogIn size={25}/>
-            Register
+            <RiUserReceivedFill size={25}/>
+            <p className='text-md font-bold'>
+              Register
+            </p>
           </button>
           <div className='p-2 flex items-center w-full justify-center'>
             <p className='flex gap-1'>Already have an account? <Link href={'/login'} className='text-blue-500' >Login</Link></p>
