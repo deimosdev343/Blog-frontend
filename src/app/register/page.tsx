@@ -1,5 +1,8 @@
+"use client";
+
 import axios, { AxiosError } from 'axios';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
+
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { BiLogIn } from 'react-icons/bi';
@@ -37,10 +40,11 @@ const page = () => {
   }
 
   const password = watch("password");
+  console.log(formState.errors)
   return (
     <div className='w-full h-screen flex flex-col items-center justify-center bg-slate-200'>
     <div 
-        className='w-[70%] md:w-[50%] lg:w-[30%] h-[80%] lg:h-[50%] shadow-xl border border-slate-200 bg-white
+        className='w-[70%] md:w-[50%] lg:w-[30%] h-[80%]  shadow-xl border border-slate-200 bg-white
           rounded-xl flex flex-col justify-center p-5 overflow-scroll'
       >
         <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col w-full items-center gap-4 '>
@@ -84,7 +88,10 @@ const page = () => {
               Confirm Password
             </p>
             {formState.errors.confirmPassword?.type === "required" && <h2 className='text-red-500 font-semibold text-lg'>
-              Password Required
+              Password Conformation Required
+            </h2>}
+            {formState.errors.confirmPassword?.type === "validate" && <h2 className='text-red-500 font-semibold text-lg'>
+              Passwords Do Not Match
             </h2>}
             <input
               className='border p-2 rounded-md w-full' 
