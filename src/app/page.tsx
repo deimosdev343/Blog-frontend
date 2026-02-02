@@ -1,4 +1,4 @@
-import RecommendSearchBar from "@/components/layout/RecommendSearchBar";
+import RecommendSearchBar from "@/components/layout/RecommendSearchBar/RecommendSearchBar";
 import SideBar from "@/components/layout/SideBar/SideBar";
 import Image from "next/image";
 

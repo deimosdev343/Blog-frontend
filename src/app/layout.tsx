@@ -30,14 +30,17 @@ export default async function RootLayout({
   const cks = await cookies();
   const token =  cks.get("token")?.value;
   try {
-    const res= await axios.get(`${process.env.BACKEND_API}/user/auth`, {
-      headers: {
-        Authorization: `bearer ${token}`
-      }
-    });
-    user = res.data;
+    if(token){
+      const res= await axios.get(`${process.env.BACKEND_API}/user/auth`, {
+        headers: {
+          Authorization: `bearer ${token}`
+        }
+      });
+      user = res.data;
+    }
     
   } catch (err) {
+    cks.delete("token")
     console.log(err)
   }
 
