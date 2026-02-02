@@ -5,11 +5,11 @@ import { IconType } from 'react-icons';
 interface dropDownBtnType {
   className: string,
   text: string,
-  icon?: IconType
+  Icon?: IconType,
   children: ReactNode
 }
 
-const DropdownBtn = ({className,text, children}: dropDownBtnType) => {
+const DropdownBtn = ({className,text, children, Icon}: dropDownBtnType) => {
   const [open, setOpen] = useState<Boolean>(false);
   const ref = useRef<HTMLButtonElement>(null);
   useEffect(() => {
@@ -31,6 +31,7 @@ const DropdownBtn = ({className,text, children}: dropDownBtnType) => {
       >
         {text}
         {open && children}
+        {Icon &&  <Icon size={20} />}
       </button>
     
   )
