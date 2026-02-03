@@ -15,10 +15,10 @@ const SideBarCreateButton = () => {
       >
         <div className="absolute left-0 top-full z-10 mt-2 w-full rounded-md bg-white shadow-lg ring-1 ring-black/5">
           <div className="py-1">
-            <Link href={'/'} className="block w-full px-4 py-2 text-left text-md hover:bg-gray-100 border-b border-dotted">
+            <Link href={'/createpost'} className="block w-full px-4 py-2 text-left text-md hover:bg-gray-100 border-b border-dotted">
               Post
             </Link>
-            <Link href={'/'} className="block w-full px-4 py-2 text-left text-md hover:bg-gray-100 border-dotted">
+            <Link href={'/createpost'} className="block w-full px-4 py-2 text-left text-md hover:bg-gray-100 border-dotted">
               Note
             </Link>
           </div>
