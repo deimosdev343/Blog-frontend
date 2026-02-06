@@ -5,6 +5,7 @@ import StarterKit from "@tiptap/starter-kit";
 import Link from "@tiptap/extension-link";
 import Placeholder from "@tiptap/extension-placeholder";
 import Image from "@tiptap/extension-image";
+import { BiSave } from "react-icons/bi";
 
 
 function ToolbarButton({
@@ -96,12 +97,12 @@ const RTEditor = () => {
       </div>
       <EditorContent editor={editor} />
       <button
-        className="mt-8 text-sm text-gray-500 underline"
+        className="border border-gray-600 p-1 mt-2 rounded-lg"
         onClick={() => {
           console.log(editor.getHTML());
         }}
       >
-        Log HTML
+        <BiSave size={20} color={"#4a5565"}/>
       </button>
     </div>
   )
