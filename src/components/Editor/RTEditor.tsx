@@ -68,8 +68,9 @@ const RTEditor = () => {
         className="w-full text-5xl font-bold placeholder:text-gray-300 focus:outline-none mb-8"
       />
 
-      
-      <h2 className="font-bold text-xl">Text styling</h2>
+      <div className="flex items-center font-bold mb-2">
+        <h2 className="font-bold text-xl text-gray-600">Text styling</h2>
+      </div>
 
       <div className="flex gap-2 mb-4 text-sm text-gray-600">
         <ToolbarButton
@@ -109,9 +110,31 @@ const RTEditor = () => {
           label="Center"
         />
       </div>
-      <h2 className="font-bold text-xl">Text Aligment</h2>
-      <div className="">
-
+      <div className="flex items-center font-bold mb-2">
+        <h2 className="font-bold text-xl text-gray-600">Text Alignment</h2>
+      </div>
+      <div className="flex gap-2 mb-4 text-sm text-gray-600">
+        <ToolbarButton
+          active={editor.isActive({ textAlign: "left" })}
+          onClick={() =>
+            editor.chain().focus().setTextAlign("left").run()
+          }
+          label="Left"
+        />
+        <ToolbarButton
+          active={editor.isActive({ textAlign: "center" })}
+          onClick={() =>
+            editor.chain().focus().setTextAlign("center").run()
+          }
+          label="Center"
+        />
+        <ToolbarButton
+          active={editor.isActive({ textAlign: "center" })}
+          onClick={() =>
+            editor.chain().focus().setTextAlign("right").run()
+          }
+          label="right"
+        />
       </div>
       <EditorContent editor={editor} />
       <div className="w-full flex items-center p-1">
