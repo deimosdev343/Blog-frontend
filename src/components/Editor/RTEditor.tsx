@@ -49,7 +49,7 @@ const RTEditor = () => {
 
     editorProps: {
       attributes:{
-        class:"max-w-none focus:outline-none border border-dotted rounded-xl min-h-[14rem]"
+        class:"max-w-none focus:outline-none border-1 border-dotted rounded-xl min-h-[14rem] p-1"
       }
     }
   })
