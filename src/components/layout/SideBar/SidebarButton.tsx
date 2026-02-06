@@ -16,7 +16,6 @@ const SidebarButton = ({linkTo, IconComp, btnTitle, onClickFunc} : sbtnProps) =>
     <Link 
       href={linkTo}
       onClick={() => {
-        console.log(onClickFunc)
         if(onClickFunc) {
           onClickFunc()
         }

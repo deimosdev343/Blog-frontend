@@ -96,14 +96,17 @@ const RTEditor = () => {
         />
       </div>
       <EditorContent editor={editor} />
-      <button
-        className="border border-gray-600 p-1 mt-2 rounded-lg"
-        onClick={() => {
-          console.log(editor.getHTML());
-        }}
-      >
-        <BiSave size={20} color={"#4a5565"}/>
-      </button>
+      <div className="w-full flex items-center p-1">
+        <button
+          className="border border-gray-600 p-1 mt-2 rounded-lg cursor-pointer"
+          onClick={() => {
+            console.log(editor.getHTML());
+          }}
+        >
+          <BiSave size={35} color={"#4a5666"}/>
+        </button>
+
+      </div>
     </div>
   )
 }
