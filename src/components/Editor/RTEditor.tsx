@@ -6,7 +6,7 @@ import Link from "@tiptap/extension-link";
 import Placeholder from "@tiptap/extension-placeholder";
 import Image from "@tiptap/extension-image";
 import { BiSave } from "react-icons/bi";
-
+import TextAlign from '@tiptap/extension-text-align';
 
 function ToolbarButton({
   onClick,
@@ -43,6 +43,9 @@ const RTEditor = () => {
       Image,
       Placeholder.configure({
         placeholder:"Share your thoughts..."
+      }),
+      TextAlign.configure({
+        types: ["heading", "paragraph"],
       })
     ],
     content:"",
@@ -64,6 +67,10 @@ const RTEditor = () => {
         placeholder="Title"
         className="w-full text-5xl font-bold placeholder:text-gray-300 focus:outline-none mb-8"
       />
+
+      
+      <h2 className="font-bold text-xl">Text styling</h2>
+
       <div className="flex gap-2 mb-4 text-sm text-gray-600">
         <ToolbarButton
           active={editor.isActive("bold")}
@@ -94,6 +101,17 @@ const RTEditor = () => {
           }}
           label="🔗"
         />
+        <ToolbarButton
+          active={editor.isActive({ textAlign: "center" })}
+          onClick={() =>
+            editor.chain().focus().setTextAlign("center").run()
+          }
+          label="Center"
+        />
+      </div>
+      <h2 className="font-bold text-xl">Text Aligment</h2>
+      <div className="">
+
       </div>
       <EditorContent editor={editor} />
       <div className="w-full flex items-center p-1">
