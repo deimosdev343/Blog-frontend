@@ -132,7 +132,7 @@ const RTEditor = () => {
           label="Center"
         />
         <ToolbarButton
-          active={editor.isActive({ textAlign: "center" })}
+          active={editor.isActive({ textAlign: "right" })}
           onClick={() =>
             editor.chain().focus().setTextAlign("right").run()
           }
@@ -170,6 +170,20 @@ const RTEditor = () => {
             editor.chain().focus().setFontSize('32px').run()
           }
           label="32px"
+        />
+         <ToolbarButton
+          active={editor.isActive({ textAlign: "left" })}
+          onClick={() =>
+            editor.chain().focus().setFontSize('48px').run()
+          }
+          label="48px"
+        />
+        <ToolbarButton
+          active={editor.isActive({ textAlign: "left" })}
+          onClick={() =>
+            editor.chain().focus().setFontSize('56px').run()
+          }
+          label="56px"
         />
       </div>
       <EditorContent editor={editor} />
