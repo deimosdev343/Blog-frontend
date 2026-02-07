@@ -70,7 +70,7 @@ const SideBar = () => {
         btnTitle='Login'
         linkTo='/login'
       />}
-      <SideBarCreateButton/>    
+      {user.loggedIn && <SideBarCreateButton/>}    
 
 
 
