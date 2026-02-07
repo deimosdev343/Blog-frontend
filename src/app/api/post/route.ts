@@ -7,20 +7,19 @@ type ApiResponseError = {
 
 export const POST = async (req: NextRequest) => {
   try {
-    const body = await req.json()
-    
-    const backendRes = await axios.post(
-      `${process.env.BACKEND_API}/user/login`,
-       body,
-       {
-        headers: {
-          "Content-Type": "application/json",
-        }
-       }
-       
-    ); 
     const cks = await cookies();
-    cks.set("token", backendRes.data.access_token);
+    const token =  cks.get("token")?.value;
+    const body = await req.json();
+
+    const backendRes = await axios.post(
+      `${process.env.BACKEND_API}/post`,
+      body,
+      {
+        headers:{
+          Authorization: `bearer ${token}`
+        }
+      }
+    );
     return NextResponse.json(
       backendRes.data,
       {status: 200}
