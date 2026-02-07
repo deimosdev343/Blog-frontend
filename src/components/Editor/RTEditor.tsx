@@ -96,22 +96,6 @@ const RTEditor = () => {
           onClick={() => editor.chain().focus().toggleCodeBlock().run()}
           label="</>"
         />
-         <ToolbarButton
-          onClick={() => {
-            const url = prompt("Enter URL");
-            if (url) {
-              editor.chain().focus().setLink({ href: url }).run();
-            }
-          }}
-          label="🔗"
-        />
-        <ToolbarButton
-          active={editor.isActive({ textAlign: "center" })}
-          onClick={() =>
-            editor.chain().focus().setTextAlign("center").run()
-          }
-          label="Center"
-        />
       </div>
       <div className="flex items-center font-bold mb-2">
         <h2 className="font-bold text-xl text-gray-600">Text Alignment</h2>
