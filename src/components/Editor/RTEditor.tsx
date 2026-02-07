@@ -7,6 +7,7 @@ import Placeholder from "@tiptap/extension-placeholder";
 import Image from "@tiptap/extension-image";
 import { BiSave } from "react-icons/bi";
 import TextAlign from '@tiptap/extension-text-align';
+import {FontSize, TextStyle} from "@tiptap/extension-text-style";
 
 function ToolbarButton({
   onClick,
@@ -46,7 +47,9 @@ const RTEditor = () => {
       }),
       TextAlign.configure({
         types: ["heading", "paragraph"],
-      })
+      }),
+      FontSize,
+      TextStyle
     ],
     content:"",
     immediatelyRender: false,
@@ -134,6 +137,39 @@ const RTEditor = () => {
             editor.chain().focus().setTextAlign("right").run()
           }
           label="right"
+        />
+      </div>
+      <div className="flex items-center font-bold mb-2">
+        <h2 className="font-bold text-xl text-gray-600">Text Size</h2>
+      </div>
+      <div className="flex gap-2 mb-4 text-sm text-gray-600">
+        <ToolbarButton
+          active={editor.isActive({ textAlign: "left" })}
+          onClick={() =>
+            editor.chain().focus().setFontSize('14px').run()
+          }
+          label="14px"
+        />
+        <ToolbarButton
+          active={editor.isActive({ textAlign: "left" })}
+          onClick={() =>
+            editor.chain().focus().setFontSize('18px').run()
+          }
+          label="18px"
+        />
+        <ToolbarButton
+          active={editor.isActive({ textAlign: "left" })}
+          onClick={() =>
+            editor.chain().focus().setFontSize('28px').run()
+          }
+          label="28px"
+        />
+        <ToolbarButton
+          active={editor.isActive({ textAlign: "left" })}
+          onClick={() =>
+            editor.chain().focus().setFontSize('32px').run()
+          }
+          label="32px"
         />
       </div>
       <EditorContent editor={editor} />
