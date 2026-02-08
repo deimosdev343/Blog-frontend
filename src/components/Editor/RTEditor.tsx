@@ -33,7 +33,7 @@ function ToolbarButton({
   );
 }
 
-const RTEditor = ({onSave} :{onSave: (content: any) => undefined}) => {
+const RTEditor = ({onSave} :{onSave: (title: string, content: string) => undefined}) => {
   const [title, setTitle] = useState("");
   const editor = useEditor({
     extensions: [
@@ -70,6 +70,8 @@ const RTEditor = ({onSave} :{onSave: (content: any) => undefined}) => {
       <input
         type="text"
         placeholder="Title"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
         className="w-full text-5xl font-bold placeholder:text-gray-300 focus:outline-none mb-8"
       />
 
@@ -177,7 +179,7 @@ const RTEditor = ({onSave} :{onSave: (content: any) => undefined}) => {
         <button
           className="border border-gray-600 p-1 mt-2 rounded-lg cursor-pointer"
           onClick={() => {
-            onSave(editor.getHTML());
+            onSave(title, editor.getHTML());
           }}
         >
           <BiSave size={35} color={"#4a5666"}/>
