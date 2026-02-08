@@ -1,5 +1,4 @@
 import RTEditor from '@/components/Editor/RTEditor'
-import Tiptap from '@/components/Editor/Tiptap'
 import React from 'react'
 
 const page = () => {
