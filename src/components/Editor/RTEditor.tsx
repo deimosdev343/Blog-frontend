@@ -8,6 +8,7 @@ import Image from "@tiptap/extension-image";
 import { BiSave } from "react-icons/bi";
 import TextAlign from '@tiptap/extension-text-align';
 import {FontSize, TextStyle} from "@tiptap/extension-text-style";
+import { useState } from "react";
 
 function ToolbarButton({
   onClick,
@@ -32,7 +33,8 @@ function ToolbarButton({
   );
 }
 
-const RTEditor = () => {
+const RTEditor = ({onSave} :{onSave: (content: any) => undefined}) => {
+  const [title, setTitle] = useState("");
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -175,7 +177,7 @@ const RTEditor = () => {
         <button
           className="border border-gray-600 p-1 mt-2 rounded-lg cursor-pointer"
           onClick={() => {
-            console.log(editor.getHTML());
+            onSave(editor.getHTML());
           }}
         >
           <BiSave size={35} color={"#4a5666"}/>
