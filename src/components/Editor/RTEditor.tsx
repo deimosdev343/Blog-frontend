@@ -33,7 +33,7 @@ function ToolbarButton({
   );
 }
 
-const RTEditor = ({onSave} :{onSave: (title: string, content: string) => undefined}) => {
+const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise<void>}) => {
   const [title, setTitle] = useState("");
   const editor = useEditor({
     extensions: [
