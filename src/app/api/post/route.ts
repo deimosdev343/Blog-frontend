@@ -12,7 +12,7 @@ export const POST = async (req: NextRequest) => {
     const body = await req.json();
 
     const backendRes = await axios.post(
-      `${process.env.BACKEND_API}/post`,
+      `${process.env.BACKEND_API}/posts`,
       body,
       {
         headers:{
