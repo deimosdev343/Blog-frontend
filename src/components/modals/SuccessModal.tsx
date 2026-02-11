@@ -5,6 +5,7 @@ import { IoCheckmarkCircle } from 'react-icons/io5';
 
 interface SuccessModalProps {
   isOpen: boolean;
+  isSuccess: boolean;
   title?: string;
   message?: string;
   onClose: () => void;
@@ -13,6 +14,7 @@ interface SuccessModalProps {
 
 const SuccessModal = ({
   isOpen,
+  isSuccess,
   title = "Success!",
   message = "Operation completed successfully.",
   onClose,

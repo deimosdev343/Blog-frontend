@@ -180,6 +180,9 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
           className="border border-gray-600 p-1 mt-2 rounded-lg cursor-pointer"
           onClick={() => {
             onSave(title, editor.getHTML());
+            editor.commands.setContent("");
+            setTitle("");
+            
           }}
         >
           <BiSave size={35} color={"#4a5666"}/>
