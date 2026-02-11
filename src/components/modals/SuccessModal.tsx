@@ -35,7 +35,8 @@ const SuccessModal = ({
     <div className="fixed inset-0 flex items-center justify-center  z-50">
       <div className="bg-white rounded-lg shadow-xl p-8 max-w-md w-full mx-4">
         <div className="flex flex-col items-center text-center">
-         {isSuccess && <IoCheckmarkCircle size={64} className="text-green-500 mb-4 animate-bounce" />}
+         {isSuccess && <>
+          <IoCheckmarkCircle size={64} className="text-green-500 mb-4 animate-bounce" />
           <h2 className="text-2xl font-bold text-gray-800 mb-2">{title}</h2>
           <p className="text-gray-600 mb-6">{message}</p>
           <button
@@ -44,6 +45,8 @@ const SuccessModal = ({
           >
             Close
           </button>
+         </>}
+         {!isSuccess && <p className='font-bold'>Loading...</p>}
         </div>
       </div>
     </div>
