@@ -49,6 +49,12 @@ const SuccessModal = ({
          {!isSuccess && <p className='font-bold'>Loading...</p>}
         </div>
       </div>
+      <div 
+        className='absolute z-[-10] bg-black w-full h-screen'
+        style={{opacity:0.5}}    
+      >
+
+      </div>
     </div>
   );
 };
