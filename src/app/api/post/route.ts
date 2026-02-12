@@ -11,12 +11,7 @@ export const GET = async (req: NextRequest) => {
     const token =  cks.get("token")?.value;
 
     const backendRes = await axios.get(
-      `${process.env.BACKEND_API}/posts`,
-      {
-        headers:{
-          Authorization: `bearer ${token}`
-        }
-      }
+      `${process.env.BACKEND_API}/posts`
     );
     return NextResponse.json(
       backendRes.data,
