@@ -22,7 +22,8 @@ const PostList = () => {
         avatarUrl={pst.user_avatar}
         previewText={pst.content}
         title={pst.title}
-        id={pst.id} 
+        id={pst.id}
+        username={pst.username}
       />)}
     </div>
   )

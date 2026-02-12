@@ -5,7 +5,8 @@ import Image from 'next/image';
 type PostCardProps = {
   id: number
   title: string
-  previewText: string
+  previewText: string,
+  username: string,
   avatarUrl?: string
 }
 
@@ -18,9 +19,9 @@ function isValidUrl(url: string): boolean {
   }
 }
 
-const PostCard = ({id, title, previewText, avatarUrl} :PostCardProps) => {
+const PostCard = ({id,username, title, previewText, avatarUrl} :PostCardProps) => {
   return (
-    <article className='w-[60%] bg-white rounded-xl shadow-md p-4'>
+    <article className='relative w-[90%] min-h-[25%] bg-white rounded-xl shadow-md p-4 flex flex-col overflow-clip'>
       <div className='flex items-center gap-3 mb-2'>
         <Image
           src={(avatarUrl && isValidUrl(avatarUrl)) ? avatarUrl : DefaultAvatar}
@@ -29,7 +30,18 @@ const PostCard = ({id, title, previewText, avatarUrl} :PostCardProps) => {
           alt="avatar"
           className="w-10 h-10 rounded-full object-cover"
         />
+        <p className='font-bold text-lg'>{username}</p>
       </div>
+      <h2 className="text-3xl font-semibold text-gray-900">
+        {title}
+      </h2>  
+      <div 
+        className=""
+        dangerouslySetInnerHTML={{__html: previewText.slice(0,500)}}
+      />
+      <p className='absolute top-[80%]'>
+        Go To Post {"->"}
+      </p>
     </article>
   )
 }
