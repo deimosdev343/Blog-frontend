@@ -40,7 +40,7 @@ const PostCard = ({id,username, title, previewText, avatarUrl} :PostCardProps) =
         className=""
         dangerouslySetInnerHTML={{__html: previewText.slice(0,500)}}
       />
-      <div className='absolute top-[75%] flex items-center gap-2 border  p-1 rounded-2xl cursor-pointer'>
+      <div className='absolute top-[75%] flex items-center gap-2 border hover:bg-gray-100 p-1 rounded-2xl cursor-pointer'>
         <p className='font-bold'>Go To Post</p> 
          <FaCircleArrowRight className="mt-[1px]" />
       </div>
