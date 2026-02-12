@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import DefaultAvatar from '../../static/user.png';
 import Image from 'next/image';
+import { FaCircleArrowRight } from 'react-icons/fa6';
 
 type PostCardProps = {
   id: number
@@ -39,9 +40,10 @@ const PostCard = ({id,username, title, previewText, avatarUrl} :PostCardProps) =
         className=""
         dangerouslySetInnerHTML={{__html: previewText.slice(0,500)}}
       />
-      <p className='absolute top-[80%]'>
-        Go To Post {"->"}
-      </p>
+      <div className='absolute top-[75%] flex items-center gap-2 border  p-1 rounded-2xl cursor-pointer'>
+        <p className='font-bold'>Go To Post</p> 
+         <FaCircleArrowRight className="mt-[1px]" />
+      </div>
     </article>
   )
 }
