@@ -24,6 +24,7 @@ const PostList = () => {
         title={pst.title}
         id={pst.id}
         username={pst.username}
+        user_id={pst.author_id}
       />)}
     </div>
   )

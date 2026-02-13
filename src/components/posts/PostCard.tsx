@@ -2,13 +2,15 @@ import React, { useState } from 'react'
 import DefaultAvatar from '../../static/user.png';
 import Image from 'next/image';
 import { FaCircleArrowRight } from 'react-icons/fa6';
+import Link from 'next/link';
 
 type PostCardProps = {
   id: number
   title: string
   previewText: string,
   username: string,
-  avatarUrl?: string
+  avatarUrl?: string,
+  user_id: number
 }
 
 function isValidUrl(url: string): boolean {
@@ -20,10 +22,10 @@ function isValidUrl(url: string): boolean {
   }
 }
 
-const PostCard = ({id,username, title, previewText, avatarUrl} :PostCardProps) => {
+const PostCard = ({id,username, title, previewText, avatarUrl, user_id} :PostCardProps) => {
   return (
     <article className='relative w-[90%] min-h-[25%] bg-white rounded-xl shadow-md p-4 flex flex-col overflow-clip'>
-      <div className='flex items-center gap-3 mb-2'>
+      <Link href={`/profilePage/${user_id}`} className='flex items-center gap-3 mb-2'>
         <Image
           src={(avatarUrl && isValidUrl(avatarUrl)) ? avatarUrl : DefaultAvatar}
           width={10}
@@ -32,7 +34,7 @@ const PostCard = ({id,username, title, previewText, avatarUrl} :PostCardProps) =
           className="w-10 h-10 rounded-full object-cover"
         />
         <p className='font-bold text-lg'>{username}</p>
-      </div>
+      </Link>
       <h2 className="text-3xl font-semibold text-gray-900">
         {title}
       </h2>  
