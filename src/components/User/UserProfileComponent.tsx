@@ -16,7 +16,7 @@ const UserProfileComponent = ({username, avatar_url, descrption}: UserProfileDat
   
   
   return (
-    <div className="w-full bg-white shadow-lg rounded-2xl p-8">
+    <div className="w-full bg-white shadow-lg rounded-2xl p-8 border border-gray-200">
         <div className="flex items-center gap-6">
           <div 
             className="relative w-24 h-24 rounded-full
