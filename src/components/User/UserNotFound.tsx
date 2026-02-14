@@ -21,14 +21,15 @@ export default function UserNotFound({
         </div>
         <h2 className="text-2xl font-semibold mb-2">
           User not found
-        </h2>
+        </h2> 
         <p className="text-gray-500 mb-6">
           {message}
         </p>
         {showBackButton && (
           <button
             onClick={() => router.back()}
-            className="px-6 py-3 rounded-xl bg-black text-white hover:opacity-85 transition"
+            className="px-6 py-3 rounded-xl bg-black 
+            font-bold text-white hover:opacity-85 transition"
           >
             Go back
           </button>

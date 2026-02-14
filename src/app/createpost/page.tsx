@@ -7,9 +7,7 @@ import React from 'react'
 const page = () => {
     
   return (
-    <div className='w-[60%] h-screen overflow-scroll'>
-      <EditorComponent/>
-    </div>
+    <EditorComponent/>
   )
 }
 

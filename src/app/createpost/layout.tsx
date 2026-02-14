@@ -6,7 +6,9 @@ const layout = ({children}: {children: React.ReactNode}) => {
   return (
     <div className='w-full h-screen flex'>
       <SideBar/>
-      {children}
+      <div className='w-full md:w-[60%] h-screen overflow-scroll'>
+        {children}
+      </div>
       <RecommendSearchBar/>
     </div>
   )

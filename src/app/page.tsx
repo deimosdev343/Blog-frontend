@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <div className="flex bg-white w-full h-screen">
       <SideBar/>
-      <div className="w-[64%] h-screen">
+      <div className="w-full md:w-[64%] h-screen">
         <PostList/>
       </div>
       <RecommendSearchBar/>

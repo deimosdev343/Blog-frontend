@@ -24,7 +24,9 @@ const page = async ({params}: PageProps) => {
   console.log(userData);
 
   if(!userData) {
-    return <UserNotFound showBackButton={true}/>
+    return <div className='w-full flex flex-col items-center justify-center'>
+      <UserNotFound showBackButton={true}/>
+    </div>
   }
 
   return (
