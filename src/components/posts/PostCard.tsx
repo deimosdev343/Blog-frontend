@@ -24,7 +24,7 @@ function isValidUrl(url: string): boolean {
 
 const PostCard = ({id,username, title, previewText, avatarUrl, user_id} :PostCardProps) => {
   return (
-    <article className='relative w-[90%] min-h-[25%] bg-white rounded-xl shadow-md p-4 flex flex-col overflow-clip'>
+    <article className='relative w-[90%] min-h-[45%] bg-white rounded-xl shadow-md p-4 flex flex-col overflow-clip'>
       <Link href={`/profilePage/${user_id}`} className='flex items-center gap-3 mb-2'>
         <Image
           src={(avatarUrl && isValidUrl(avatarUrl)) ? avatarUrl : DefaultAvatar}
@@ -39,10 +39,10 @@ const PostCard = ({id,username, title, previewText, avatarUrl, user_id} :PostCar
         {title}
       </h2>  
       <div 
-        className=""
+        className="h-[55%] overflow-clip"
         dangerouslySetInnerHTML={{__html: previewText.slice(0,500)}}
       />
-      <div className='absolute top-[75%] flex items-center gap-2 border hover:bg-gray-100 p-1 rounded-2xl cursor-pointer'>
+      <div className='absolute top-[80%] flex items-center gap-2 border hover:bg-gray-100 p-1 rounded-2xl cursor-pointer'>
         <p className='font-bold'>Go To Post</p> 
          <FaCircleArrowRight className="mt-[1px]" />
       </div>
