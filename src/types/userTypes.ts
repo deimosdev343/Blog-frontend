@@ -10,3 +10,9 @@ export interface UserDataPayload {
   username: string,
   avatar_url?: string,
 }
+
+export interface UserProfileData {
+  username: string,
+  avatar_url?: string,
+  descrption: string
+}
