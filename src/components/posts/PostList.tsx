@@ -16,7 +16,7 @@ const PostList = () => {
     fetchPosts();
   }, [])
   return (
-    <div className='w-full h-full flex flex-col items-center gap-2 overflow-scroll'>
+    <div className='w-full h-full flex flex-col items-center gap-2 overflow-scroll py-2'>
       {posts.map(pst => <PostCard 
         key={pst.id}
         avatarUrl={pst.user_avatar}

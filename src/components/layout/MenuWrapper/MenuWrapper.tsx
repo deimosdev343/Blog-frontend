@@ -1,13 +1,18 @@
 import RecommendSearchBar from '@/components/layout/RecommendSearchBar/RecommendSearchBar'
 import SideBar from '@/components/layout/SideBar/SideBar'
 import React from 'react'
+import BottomBar from '../BottomBar/BottomBar'
 
 const MenuWrapper = ({children}: {children: React.ReactNode}) => {
   return (
     <div className='w-full h-screen flex'>
       <SideBar/>
-      <div className='w-full md:w-[60%] h-screen overflow-scroll'>
-        {children}
+      
+      <div className='w-full md:w-[60%] h-full overflow-clip'>
+        <div className='w-full  h-[90%] overflow-scroll '>
+          {children}
+        </div>
+        <BottomBar/>
       </div>
       <RecommendSearchBar/>
     </div>
