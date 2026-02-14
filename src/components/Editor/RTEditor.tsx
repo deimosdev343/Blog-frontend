@@ -130,7 +130,7 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
       <div className="flex items-center font-bold mb-2">
         <h2 className="font-bold text-xl text-gray-600">Text Size</h2>
       </div>
-      <div className="flex gap-2 mb-4 text-sm text-gray-600">
+      <div className="grid grid-cols-4 md:flex gap-2 mb-4 text-sm text-gray-600">
         <ToolbarButton
           active={editor.isActive({ textAlign: "left" })}
           onClick={() =>
