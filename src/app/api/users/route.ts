@@ -8,7 +8,8 @@ type ApiResponseError = {
 
 export const GET = async (req: NextRequest) => {
   try {
-    const backendRes = await axios.get('/')
+    
+    const backendRes = await axios.get(`${process.env.BACKEND_API}/user/`)
   } catch (err) {
     console.log(err);
     const axErr = err as AxiosError<ApiResponseError>;

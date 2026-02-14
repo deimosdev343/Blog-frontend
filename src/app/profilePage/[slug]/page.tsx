@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React from 'react'
 
 type PageProps = {
@@ -9,7 +10,24 @@ type PageProps = {
 
 const page = async ({params}: PageProps) => {
   const slug = (await params).slug;
-  console.log(slug)
+  let userData = null;
+  const getUserData = async () => {
+    try {
+      const res = await axios.get(`${process.env.BACKEND_API}/user/${slug}`);
+      userData = res.data;
+    } catch (err) {
+      console.log(err)
+    }
+  }
+  await getUserData();
+  console.log(userData);
+
+  if(!userData) {
+    return <div>
+      
+    </div>
+  }
+
   return (
     <div className='w-full h-screen flex flex-col'>
 
