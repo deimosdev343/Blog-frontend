@@ -9,7 +9,7 @@ const MenuWrapper = ({children}: {children: React.ReactNode}) => {
       <SideBar/>
       
       <div className='w-full md:w-[60%] h-full overflow-clip'>
-        <div className='w-full  h-[90%] overflow-scroll '>
+        <div className='w-full  h-[90%] md:h-full overflow-scroll '>
           {children}
         </div>
         <BottomBar/>
