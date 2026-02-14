@@ -1,3 +1,4 @@
+import UserNotFound from '@/components/User/UserNotFound'
 import axios from 'axios'
 import React from 'react'
 
@@ -23,9 +24,7 @@ const page = async ({params}: PageProps) => {
   console.log(userData);
 
   if(!userData) {
-    return <div>
-      
-    </div>
+    return <UserNotFound showBackButton={true}/>
   }
 
   return (
