@@ -50,8 +50,8 @@ const PostList = () => {
         dataLength={posts.length}
         className='w-full h-full flex flex-col items-center gap-2 overflow-scroll py-2'
       >
-        {posts.map(pst => <PostCard 
-          key={pst.id}
+        {posts.map((pst,index) => <PostCard 
+          key={index}
           avatarUrl={pst.user_avatar}
           previewText={pst.content}
           title={pst.title}
