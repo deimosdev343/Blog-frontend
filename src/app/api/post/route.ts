@@ -7,11 +7,19 @@ type ApiResponseError = {
 
 export const GET = async (req: NextRequest) => { 
   try {
-    const cks = await cookies();
-    const token =  cks.get("token")?.value;
+    const {searchParams} = new URL(req.url);
 
+    const skip = searchParams.get("skip") ?? "0";
+    const limit = searchParams.get("limit") ?? "10";
+    
     const backendRes = await axios.get(
-      `${process.env.BACKEND_API}/posts`
+      `${process.env.BACKEND_API}/posts`,
+      {
+        params:{
+          skip,
+          limit
+        }
+      }
     );
     return NextResponse.json(
       backendRes.data,
