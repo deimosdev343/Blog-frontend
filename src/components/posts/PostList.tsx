@@ -4,6 +4,7 @@ import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react'
 import PostCard from './PostCard';
 import {Post} from '../../types/postTypes'
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const LIMIT = 10;
 
@@ -15,7 +16,7 @@ const PostList = () => {
     hasMore: true
   })
   const [posts, setPosts] = useState<Post[]>([]);
-  const observer = useRef<IntersectionObserver | null>(null);
+  
   const fetchPosts = async () => {
     if (PostFetchState.loading || !PostFetchState.hasMore) return;
     setPostFetchState(st => ({...st, loading: true}));
@@ -39,17 +40,28 @@ const PostList = () => {
   }, []);
 
   return (
-    <div className='w-full h-full flex flex-col items-center gap-2 overflow-scroll py-2'>
-      {posts.map(pst => <PostCard 
-        key={pst.id}
-        avatarUrl={pst.user_avatar}
-        previewText={pst.content}
-        title={pst.title}
-        id={pst.id}
-        username={pst.username}
-        user_id={pst.author_id}
-      />)}
-    </div>
+    
+      <InfiniteScroll
+        next={fetchPosts}
+        hasMore={PostFetchState.hasMore}
+        loader={<div className='flex w-full items-center'>
+          <p>Loading More Posts...</p>
+        </div>}
+        dataLength={posts.length}
+        className='w-full h-full flex flex-col items-center gap-2 overflow-scroll py-2'
+      >
+        {posts.map(pst => <PostCard 
+          key={pst.id}
+          avatarUrl={pst.user_avatar}
+          previewText={pst.content}
+          title={pst.title}
+          id={pst.id}
+          username={pst.username}
+          user_id={pst.author_id}
+        />)}
+
+      </InfiniteScroll>
+
   )
 }
 
