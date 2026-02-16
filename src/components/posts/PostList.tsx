@@ -40,27 +40,30 @@ const PostList = () => {
   }, []);
 
   return (
-    
-      <InfiniteScroll
-        next={fetchPosts}
-        hasMore={PostFetchState.hasMore}
-        loader={<div className='flex w-full items-center'>
-          <p>Loading More Posts...</p>
-        </div>}
-        dataLength={posts.length}
-        className='w-full h-full flex flex-col items-center gap-2 overflow-scroll py-2'
-      >
-        {posts.map((pst,index) => <PostCard 
-          key={index}
-          avatarUrl={pst.user_avatar}
-          previewText={pst.content}
-          title={pst.title}
-          id={pst.id}
-          username={pst.username}
-          user_id={pst.author_id}
-        />)}
+      <>
+        <InfiniteScroll
+          next={fetchPosts}
+          hasMore={PostFetchState.hasMore}
+          loader={<div className='flex w-full items-center'>
+            <p>Loading More Posts...</p>
+          </div>}
+          dataLength={posts.length -1}
+          scrollableTarget="scrollable"
+          className='w-full h-full flex flex-col items-center gap-2 py-2'
+        >
+          {posts.map((pst,index) => <PostCard 
+            key={index}
+            avatarUrl={pst.user_avatar}
+            previewText={pst.content}
+            title={pst.title}
+            id={pst.id}
+            username={pst.username}
+            user_id={pst.author_id}
+          />)}
 
-      </InfiniteScroll>
+        </InfiniteScroll>
+        
+      </>
 
   )
 }
