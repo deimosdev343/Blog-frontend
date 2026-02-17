@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import DefaultAvatar from '../../static/user.png';
 import Image from 'next/image';
 import { FaCircleArrowRight } from 'react-icons/fa6';
@@ -22,35 +22,57 @@ function isValidUrl(url: string): boolean {
   }
 }
 
-const PostCard = ({id,username, title, previewText, avatarUrl, user_id} :PostCardProps) => {
+const PostCard = ({id,username,title,previewText,avatarUrl,user_id}:PostCardProps) => {
+
   return (
-    <article className='relative w-[90%]  min-h-[45%] bg-white rounded-xl shadow-md p-4 flex flex-col overflow-clip'>
-      <Link href={`/profilePage/${user_id}`} className='flex items-center gap-3 mb-2'>
+    <article className=" group relative w-full bg-white/80 backdrop-blur-sm rounded-3xl
+      shadow-md hover:shadow-2xl transition-all duration-300 p-6 flex flex-col gap-3
+      border border-gray-200"
+    >
+      <Link href={`/profilePage/${user_id}`} 
+        className="flex items-center gap-3 w-full">
+
         <Image
           src={(avatarUrl && isValidUrl(avatarUrl)) ? avatarUrl : DefaultAvatar}
-          width={10}
-          height={10}
+          width={40}
+          height={40}
           alt="avatar"
-          className="w-10 h-10 rounded-full object-cover"
-        />
-        <p className='font-bold text-lg'>{username}</p>
-      </Link>
-      <h2 className="text-3xl font-semibold text-gray-900">
-        {title}
-      </h2>  
-      <div className='w-full p-5 h-[150px] md:h-[200px] relative overflow-clip'>
-        <div 
-          className=" overflow-clip"
-          dangerouslySetInnerHTML={{__html: previewText.slice(0,500)}}
+          className="w-11 h-11 rounded-full object-cover border"
         />
 
-      </div>
-      <div className='w-full flex items-center p-5'>
-        <div className='flex items-center gap-2 border hover:bg-gray-100 p-1 rounded-2xl cursor-pointer'>
-          <p className='font-bold'>Go To Post</p> 
-          <FaCircleArrowRight className="mt-[1px]" />
+        <p className="font-semibold text-gray-800 text-lg hover:underline">
+          {username}
+        </p>
+
+      </Link>
+      <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
+        {title}
+      </h2>
+      <div className="relative">
+
+        <div className=" max-h-[160px] md:max-h-[220px] overflow-hidden">
+          <div
+            dangerouslySetInnerHTML={{__html: previewText.slice(0,500)}}
+          />
+
         </div>
+        <div className=" pointer-events-none absolute bottom-0 left-0 right-0 h-16
+          bg-gradient-to-t from-white to-transparent" 
+        />
       </div>
+      <div className="pt-2">
+        <Link
+          href={`/post/${id}`}
+          className=" inline-flex items-center gap-2 px-5 py-2.5 rounded-xl
+          bg-[#3e68c4] text-white font-semibold
+            shadow-md hover:shadow-lg hover:scale-[1.03] transition-all"
+        >
+          Go to post
+          <FaCircleArrowRight />
+        </Link>
+
+      </div>
+
     </article>
   )
 }
