@@ -11,7 +11,8 @@ export const GET = async (req: NextRequest) => {
 
     const skip = searchParams.get("skip") ?? "0";
     const limit = searchParams.get("limit") ?? "10";
-    const user_id = searchParams.get("user_id")
+    const user_id = searchParams.get("user_id");
+    console.log(user_id);
     const backendRes = await axios.get(
       `${process.env.BACKEND_API}/user/posts/${user_id}`,
       {
@@ -21,6 +22,7 @@ export const GET = async (req: NextRequest) => {
         }
       }
     );
+    console.log(backendRes);
     return NextResponse.json(
       backendRes.data,
       {status: 200}

@@ -1,5 +1,6 @@
 import UserNotFound from '@/components/User/UserNotFound'
 import UserProfileComponent from '@/components/User/UserProfileComponent'
+import UserPosts from '@/components/UserPosts/UserPosts'
 import axios from 'axios'
 type PageProps = {
   params: {
@@ -34,6 +35,9 @@ const page = async ({params}: PageProps) => {
           username={userData.username}
           descrption={userData.descrption}
           avatar_url={userData.avatar_url}
+        />
+        <UserPosts
+          user_id={slug}
         />
       </div>
     )
