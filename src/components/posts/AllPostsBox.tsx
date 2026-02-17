@@ -8,7 +8,7 @@ import PostList from './PostList';
 const LIMIT = 10;
 
 const AllPostsBox = () => {
-   const [PostFetchState, setPostFetchState] = useState({
+  const [PostFetchState, setPostFetchState] = useState({
     skip: 0,
     loading: false,
     hasMore: true
