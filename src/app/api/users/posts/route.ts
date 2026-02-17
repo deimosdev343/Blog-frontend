@@ -13,7 +13,7 @@ export const GET = async (req: NextRequest) => {
     const limit = searchParams.get("limit") ?? "10";
     const user_id = searchParams.get("user_id")
     const backendRes = await axios.get(
-      `${process.env.BACKEND_API}/users/posts/${user_id}`,
+      `${process.env.BACKEND_API}/user/posts/${user_id}`,
       {
         params:{
           skip,
