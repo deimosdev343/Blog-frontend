@@ -26,7 +26,7 @@ const PostList = ({posts, fetchPosts, hasMore} : PostListProps) => {
           </div>}
           dataLength={posts.length -1}
           scrollableTarget="scrollable"
-          className='w-full h-full flex flex-col items-center gap-2 py-2'
+          className='w-full h-full flex flex-col items-center gap-2 p-5'
         >
           {posts.map((pst,index) => <PostCard 
             key={index}
