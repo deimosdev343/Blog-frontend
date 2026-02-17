@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import React from 'react'
-import { IconBase, IconType } from 'react-icons'
+import { IconType } from 'react-icons'
 
 interface sbtnProps {
   linkTo: string,
@@ -12,25 +12,44 @@ interface sbtnProps {
 }
 
 const SidebarButton = ({linkTo, IconComp, btnTitle, onClickFunc} : sbtnProps) => {
+
   return (
     <Link 
       href={linkTo}
-      onClick={() => {
-        if(onClickFunc) {
-          onClickFunc()
-        }
-      }}
-      className='flex flex-col items-center p-3  gap-2 justify-between  
-        border-gray-600 rounded-2xl w-[80%] hover:bg-gray-200 transition-all duration-300'
+      onClick={() => onClickFunc?.()}
+      className="group flex items-center gap-4 px-4 py-3 w-full rounded-2xl
+        bg-white/70 backdrop-blur-sm hover:bg-[#2f54a5] border border-gray-200
+        hover:border-transparent shadow-sm hover:shadow-lg transition-all duration-300"
     >
-      <div className='flex items-center justify-between w-full'>
-        <IconComp color='var(--color-gray-800)' className='w-10' size={20}/>
-        <p className='text-xl font-bold text-black'>
-          {btnTitle}
-        </p>
 
+      {/* ICON */}
+      <div className="
+        flex items-center justify-center
+        w-10 h-10 rounded-xl
+        bg-indigo-100
+        group-hover:bg-white/20
+        transition-all duration-300
+      ">
+        <IconComp
+          size={20}
+          className="
+            text-[#2f54a5]
+            group-hover:text-white
+            transition-all duration-300
+          "
+        />
       </div>
-      <div className='w-full border border-dashed border-gray-600 rounded-4xl'></div>
+
+      {/* TEXT */}
+      <span className="
+        font-semibold text-gray-700
+        group-hover:text-white
+        text-lg
+        transition-all duration-300
+      ">
+        {btnTitle}
+      </span>
+
     </Link>
   )
 }
