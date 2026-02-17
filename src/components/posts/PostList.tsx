@@ -8,42 +8,19 @@ import InfiniteScroll from "react-infinite-scroll-component";
 
 const LIMIT = 10;
 
+type PostListProps = {
+  posts: Array<Post>,
+  fetchPosts: () => void,
+  hasMore: boolean
+}
 
-const PostList = () => {
-  const [PostFetchState, setPostFetchState] = useState({
-    skip: 0,
-    loading: false,
-    hasMore: true
-  })
-  const [posts, setPosts] = useState<Post[]>([]);
+const PostList = ({posts, fetchPosts, hasMore} : PostListProps) => {
   
-  const fetchPosts = async () => {
-    if (PostFetchState.loading || !PostFetchState.hasMore) return;
-    setPostFetchState(st => ({...st, loading: true}));
-    const res = await axios.get(`/api/post?skip=${PostFetchState.skip}&limit=${LIMIT}`);
-    const newPosts = res.data;
-    if (newPosts.length < LIMIT) {
-      setPostFetchState(st => ({...st, hasMore: false}));
-    }
-    setPosts(prev => [...prev, ...newPosts]);
-    setPostFetchState(st => ({...st, skip: st.skip + LIMIT, loading: false}));
-  };
-
-
-  // const fetchPosts = async () => {
-  //   const res = await axios.get('/api/post');
-  //   setPosts(res.data);
-  // }  
-
-  useEffect(() => {
-    fetchPosts();
-  }, []);
-
   return (
       <>
         <InfiniteScroll
           next={fetchPosts}
-          hasMore={PostFetchState.hasMore}
+          hasMore={hasMore}
           loader={<div className='flex w-full items-center'>
             <p>Loading More Posts...</p>
           </div>}
