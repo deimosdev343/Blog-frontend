@@ -16,10 +16,10 @@ const UserProfileComponent = ({username, avatar_url, descrption}: UserProfileDat
   
   
   return (
-    <div className="w-full bg-white shadow-lg rounded-2xl p-8 border border-gray-200">
+    <div className="w-full bg-white shadow-lg rounded-2xl p-3 md:p-8 border border-gray-200">
         <div className="flex items-center gap-6">
           <div 
-            className="relative w-24 h-24 rounded-full
+            className="relative w-10 h-10 md:w-24 md:h-24 rounded-full
               overflow-hidden bg-gray-100"
           >
             {avatarValid ? (<Image
@@ -28,22 +28,22 @@ const UserProfileComponent = ({username, avatar_url, descrption}: UserProfileDat
               fill
               className="object-cover"
             />) : (
-              <div className="w-full h-full flex items-center justify-center text-3xl font-semibold text-gray-500">
+              <div className="w-full h-full flex items-center justify-center text-md md:text-xl font-semibold text-gray-500">
                 {username[0]?.toUpperCase()}
               </div>
             )}
           </div>
-          <div className="flex flex-col">
-            <h1 className="text-3xl font-semibold leading-tight">
+          <div className="flex md:flex-col items-center justify-between ">
+            <h1 className="text-md md:text-3xl font-semibold ">
               {username}
             </h1>
 
-            <span className="text-gray-500 text-sm mt-1">
+            <span className="text-gray-500 md:text-sm ">
               @{username.toLowerCase()}
             </span>
           </div>
         </div>
-        <div className="my-6 border-t"/>
+        <div className="my-1 md:my-6  border-t"/>
         <p className="text-gray-700 whitespace-pre-wrap leading-relaxed text-[15px]">
           {descrption || "No description provided."}
         </p>

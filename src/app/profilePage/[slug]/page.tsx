@@ -30,7 +30,7 @@ const page = async ({params}: PageProps) => {
   }
   if(userData){
     return (
-      <div className='w-full h-screen flex flex-col p-2 py-5'>
+      <div className='w-full h-full flex flex-col p-2 py-5'>
         <UserProfileComponent
           username={userData.username}
           descrption={userData.descrption}
