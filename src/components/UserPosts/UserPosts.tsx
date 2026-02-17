@@ -3,6 +3,7 @@
 import { Post } from '@/types/postTypes';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import PostList from '../posts/PostList';
 
 const LIMIT = 10;
 
@@ -38,7 +39,12 @@ const UserPosts = ({user_id} : {user_id: string}) => {
   }, []);
 
   return (
-    <div>
+    <div className='w-full h-full overflow-scroll'>
+      <PostList
+        hasMore={PostFetchState.hasMore}
+        fetchPosts={fetchPosts}
+        posts={posts}
+      />
 
     </div>
   )
