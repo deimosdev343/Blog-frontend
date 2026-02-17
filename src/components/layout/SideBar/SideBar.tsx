@@ -26,55 +26,42 @@ const SideBar = () => {
     }    
   }
   return (
-    <div className='h-screen w-[22%] hidden md:flex flex-col p-2 gap-2 items-center border-r-2 bg-gray-100 border-slate-200'>
-      <div className='w-full flex items-center justify-center border-b-2 border-gray-500 p-2'>
-        <h2 className='text-black font-bold text-2xl'>Blogger</h2>
+  <div className="h-screen w-65 hidden md:flex flex-col p-4 gap-3 
+  bg-linear-to-b from-indigo-50 via-white to-purple-50 
+  border-r border-gray-200 shadow-sm">
 
-      </div>
+    {/* LOGO */}
+    <div className="w-full flex items-center justify-center pb-4 mb-2 border-b border-gray-200">
+      <h2 className="font-extrabold text-3xl  bg-[#2f54a5] text-transparent bg-clip-text">
+        Blogger
+      </h2>
+    </div>
+
+    {/* MENU */}
+    <SidebarButton IconComp={FaHome} btnTitle='Home Page' linkTo='/' />
+    <SidebarButton IconComp={FaNoteSticky} btnTitle='My Posts' linkTo='/' />
+    <SidebarButton IconComp={FaUsers} btnTitle='Following' linkTo='/' />
+    <SidebarButton IconComp={LuBookMarked} btnTitle='Bookmarks' linkTo='/' />
+    <SidebarButton IconComp={LuSettings} btnTitle='Settings' linkTo='/' />
+
+    {user.loggedIn && (
       <SidebarButton
-        IconComp={FaHome}
-        btnTitle='Home Page'
-        linkTo='/'
-      />
-      <SidebarButton
-        IconComp={FaNoteSticky}
-        btnTitle='My Posts'
-        linkTo='/'
-      />
-      <SidebarButton
-        IconComp={FaUsers}
-        btnTitle='Following'
-        linkTo='/'
-      />
-      <SidebarButton
-        IconComp={LuBookMarked}
-        btnTitle='Bookmarks'
-        linkTo='/'
-      />
-      <SidebarButton
-        IconComp={LuSettings}
-        btnTitle='Settings'
-        linkTo='/'
-      />
-      {user.loggedIn && <SidebarButton
         IconComp={LuLogOut}
         btnTitle='Logout'
         linkTo='/'
-        onClickFunc={() => {
-          console.log("enter")
-          logout()
-        }}
-      />}
-      {!user.loggedIn && <SidebarButton
-        IconComp={BiLogIn}
-        btnTitle='Login'
-        linkTo='/login'
-      />}
-      {user.loggedIn && <SideBarCreateButton/>}    
+        onClickFunc={logout}
+      />
+    )}
 
+    {!user.loggedIn && (
+      <SidebarButton IconComp={BiLogIn} btnTitle='Login' linkTo='/login'/>
+    )}
 
+    {user.loggedIn && <div className='w-full flex items-center justify-center'>
+      <SideBarCreateButton/>
+    </div>}
 
-    </div>
+  </div>
   )
 }
 
