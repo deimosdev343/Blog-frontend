@@ -39,7 +39,7 @@ const UserPosts = ({user_id} : {user_id: string}) => {
   }, []);
 
   return (
-    <div className='w-full h-full overflow-scroll'>
+    <div className='w-full h-full'>
       <PostList
         hasMore={PostFetchState.hasMore}
         fetchPosts={fetchPosts}
