@@ -27,7 +27,7 @@ const SideBar = () => {
   }
   return (
   <div className="h-screen w-65 hidden md:flex flex-col p-4 gap-3 
-  bg-linear-to-b from-indigo-50 via-white to-purple-50 
+  bg-linear-to-b from-indigo-50 via-white to-white 
   border-r border-gray-200 shadow-sm">
 
     {/* LOGO */}
