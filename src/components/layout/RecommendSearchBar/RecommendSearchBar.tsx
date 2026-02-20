@@ -9,7 +9,14 @@ const RecommendSearchBar = () => {
     searchTerm:""
   })
   return (
-    <div className='h-full w-[25%] hidden md:flex flex-col p-2 gap-2 items-center border-l-2 bg-gray-100 border-slate-200'>
+    <div className="h-screen w-[25%] hidden md:flex flex-col p-4 gap-3 
+      bg-linear-to-b from-indigo-50 via-white to-purple-50 
+      border-r border-gray-200 shadow-sm">
+      <div className="w-full flex items-center justify-center pb-4 mb-2 border-b border-gray-200">
+        <h2 className="font-extrabold text-2xl bg-[#2f54a5] text-transparent bg-clip-text">
+          Search
+        </h2>
+      </div>
       <SearchBar 
         Icon={FaSearch}
         onChange={(text) => {
