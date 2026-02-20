@@ -21,8 +21,6 @@ const SidebarButton = ({linkTo, IconComp, btnTitle, onClickFunc} : sbtnProps) =>
         bg-white/70 backdrop-blur-sm hover:bg-[#2f54a5] border border-gray-200
         hover:border-transparent shadow-sm hover:shadow-lg transition-all duration-300"
     >
-
-      {/* ICON */}
       <div className="
         flex items-center justify-center
         w-10 h-10 rounded-xl
@@ -39,8 +37,6 @@ const SidebarButton = ({linkTo, IconComp, btnTitle, onClickFunc} : sbtnProps) =>
           "
         />
       </div>
-
-      {/* TEXT */}
       <span className="
         font-semibold text-gray-700
         group-hover:text-white

@@ -29,15 +29,11 @@ const SideBar = () => {
   <div className="h-screen w-65 hidden md:flex flex-col p-4 gap-3 
   bg-linear-to-b from-indigo-50 via-white to-white 
   border-r border-gray-200 shadow-sm">
-
-    {/* LOGO */}
     <div className="w-full flex items-center justify-center pb-4 mb-2 border-b border-gray-200">
       <h2 className="font-extrabold text-3xl  bg-[#2f54a5] text-transparent bg-clip-text">
         Blogger
       </h2>
     </div>
-
-    {/* MENU */}
     <SidebarButton IconComp={FaHome} btnTitle='Home Page' linkTo='/' />
     <SidebarButton IconComp={FaNoteSticky} btnTitle='My Posts' linkTo='/' />
     <SidebarButton IconComp={FaUsers} btnTitle='Following' linkTo='/' />
