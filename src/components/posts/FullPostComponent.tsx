@@ -50,6 +50,16 @@ const FullPostComponent = ({id,username,title,content,avatarUrl,user_id}:PostCar
           <p className='text-4xl text-black font-extrabold'>{title}</p>
         </div>
       </div>
+      <div className="relative p-5">
+        <div className="h-[90%] overflow-scroll ">
+          <div
+            dangerouslySetInnerHTML={{__html: content}}
+          />
+
+        </div>
+        <div className=" pointer-events-none absolute bottom-0 left-0 right-0 h-16" 
+        />
+      </div>
     </div>
   )
 }
