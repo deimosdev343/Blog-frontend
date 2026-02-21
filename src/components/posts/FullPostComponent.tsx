@@ -51,7 +51,7 @@ const FullPostComponent = ({id,username,title,content,avatarUrl,user_id}:PostCar
         </div>
       </div>
       <div className="relative p-5">
-        <div className="h-[90%] overflow-scroll ">
+        <div className="h-screen overflow-scroll ">
           <div
             dangerouslySetInnerHTML={{__html: content}}
           />
