@@ -18,7 +18,7 @@ const SidebarButton = ({linkTo, IconComp, btnTitle, onClickFunc} : sbtnProps) =>
       href={linkTo}
       onClick={() => onClickFunc?.()}
       className="group flex items-center gap-4 px-4 py-3 w-full rounded-2xl
-        bg-white/70 backdrop-blur-sm hover:bg-[#2f54a5] border border-gray-200
+        bg-white/70 backdrop-blur-sm hover:bg-slate-200 border border-gray-200
         hover:border-transparent shadow-sm hover:shadow-lg transition-all duration-300"
     >
       <div className="
@@ -32,14 +32,14 @@ const SidebarButton = ({linkTo, IconComp, btnTitle, onClickFunc} : sbtnProps) =>
           size={20}
           className="
             text-[#2f54a5]
-            group-hover:text-white
+            
             transition-all duration-300
           "
         />
       </div>
       <span className="
         font-semibold text-gray-700
-        group-hover:text-white
+        
         text-lg
         transition-all duration-300
       ">
