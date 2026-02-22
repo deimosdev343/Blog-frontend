@@ -22,10 +22,10 @@ function ToolbarButton({
   return (
     <button
       onClick={onClick}
-      className={`px-2 py-1 rounded border ${
+      className={`px-3 py-2 rounded-lg font-medium transition-all duration-200 border ${
         active
-          ? "bg-black text-white"
-          : "bg-white text-gray-600 hover:bg-gray-100"
+          ? "bg-indigo-600 text-white border-indigo-600 shadow-md"
+          : "bg-white text-gray-700 border-gray-200 hover:bg-indigo-50 hover:border-indigo-300"
       }`}
     >
       {label}
@@ -35,6 +35,7 @@ function ToolbarButton({
 
 const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise<void>}) => {
   const [title, setTitle] = useState("");
+  const [fontSize, setFontSize] = useState(24);
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -58,7 +59,7 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
 
     editorProps: {
       attributes:{
-        class:"max-w-none focus:outline-none border-1 border-dotted rounded-xl min-h-[14rem] p-1"
+        class:"max-w-none focus:outline-none border-2 border-gray-200 rounded-2xl min-h-[14rem] p-4 bg-white/80 backdrop-blur-sm shadow-sm focus:shadow-md focus:border-indigo-300 transition-all duration-200 text-gray-900"
       }
     }
   })
@@ -66,20 +67,20 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
   if(!editor) return null;
 
   return (
-    <div className="mx-auto max-w-full h-screen px-2 py-4">
+    <div className="w-full h-screen px-4 py-6 bg-gradient-to-b from-indigo-50/50 to-white">
       <input
         type="text"
         placeholder="Title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        className="w-full text-5xl font-bold placeholder:text-gray-300 focus:outline-none mb-8"
+        className="w-full text-5xl font-bold placeholder:text-gray-400 focus:outline-none mb-8 bg-transparent text-gray-900"
       />
 
-      <div className="flex items-center font-bold mb-2">
-        <h2 className="font-bold text-xl text-gray-600">Text styling</h2>
+      <div className="flex items-center font-bold mb-3 mt-6">
+        <h2 className="font-bold text-lg text-gray-800">Text Styling</h2>
       </div>
 
-      <div className="flex gap-2 mb-4 text-sm text-gray-600">
+      <div className="flex gap-2 mb-6 text-sm">
         <ToolbarButton
           active={editor.isActive("bold")}
           onClick={() => editor.chain().focus().toggleBold().run()}
@@ -101,10 +102,10 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
           label="</>"
         />
       </div>
-      <div className="flex items-center font-bold mb-2">
-        <h2 className="font-bold text-xl text-gray-600">Text Alignment</h2>
+      <div className="flex items-center font-bold mb-3">
+        <h2 className="font-bold text-lg text-gray-800">Text Alignment</h2>
       </div>
-      <div className="flex gap-2 mb-4 text-sm text-gray-600">
+      <div className="flex gap-2 mb-6 text-sm">
         <ToolbarButton
           active={editor.isActive({ textAlign: "left" })}
           onClick={() =>
@@ -127,57 +128,47 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
           label="right"
         />
       </div>
-      <div className="flex items-center font-bold mb-2">
-        <h2 className="font-bold text-xl text-gray-600">Text Size</h2>
+      <div className="flex items-center font-bold mb-3">
+        <h2 className="font-bold text-lg text-gray-800">Text Size</h2>
       </div>
-      <div className="grid grid-cols-4 md:flex gap-2 mb-4 text-sm text-gray-600">
-        <ToolbarButton
-          active={editor.isActive({ textAlign: "left" })}
-          onClick={() =>
-            editor.chain().focus().setFontSize('14px').run()
-          }
-          label="14px"
-        />
-        <ToolbarButton
-          active={editor.isActive({ textAlign: "left" })}
-          onClick={() =>
-            editor.chain().focus().setFontSize('18px').run()
-          }
-          label="18px"
-        />
-        <ToolbarButton
-          active={editor.isActive({ textAlign: "left" })}
-          onClick={() =>
-            editor.chain().focus().setFontSize('28px').run()
-          }
-          label="28px"
-        />
-        <ToolbarButton
-          active={editor.isActive({ textAlign: "left" })}
-          onClick={() =>
-            editor.chain().focus().setFontSize('32px').run()
-          }
-          label="32px"
-        />
-         <ToolbarButton
-          active={editor.isActive({ textAlign: "left" })}
-          onClick={() =>
-            editor.chain().focus().setFontSize('48px').run()
-          }
-          label="48px"
-        />
-        <ToolbarButton
-          active={editor.isActive({ textAlign: "left" })}
-          onClick={() =>
-            editor.chain().focus().setFontSize('56px').run()
-          }
-          label="56px"
-        />
+      <div className="flex gap-4 mb-6 items-center">
+        <div className="flex-1">
+          <input
+            type="range"
+            min="1"
+            max="250"
+            defaultValue={fontSize}
+            onChange={(e) => {
+              const size = parseInt(e.target.value);
+              setFontSize(size);
+            }}
+            onMouseUp={(e) => {
+              
+              editor.chain().focus().setFontSize(`${fontSize}px`).run();
+            }}
+            className="w-full h-2 bg-gray-200 rounded-lg appearance-auto cursor-pointer accent-[#2f54a5]"
+          />
+        </div>
+        <div className="flex items-center gap-2">
+          <input
+            type="number"
+            value={fontSize}
+            onChange={(e) => {
+              const size = Math.max(1, Math.min(250, parseInt(e.target.value) || 1));
+              setFontSize(size);
+              editor.chain().focus().setFontSize(`${size}px`).run();
+            }}
+            min="1"
+            max="250"
+            className="w-16  p-1 border border-gray-200 rounded-lg focus:outline-none focus:border-indigo-300 transition-all text-gray-700 font-medium text-center"
+          />
+          <span className="text-gray-600 font-medium">px</span>
+        </div>
       </div>
       <EditorContent editor={editor} />
-      <div className="w-full flex items-center p-1">
+      <div className="w-full flex items-center p-2 mt-6">
         <button
-          className="border border-gray-600 p-1 mt-2 rounded-lg cursor-pointer"
+          className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-3 mt-4 rounded-xl cursor-pointer transition-all duration-200 shadow-md hover:shadow-lg active:scale-95"
           onClick={() => {
             onSave(title, editor.getHTML());
             editor.commands.setContent("");
@@ -185,7 +176,8 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
             
           }}
         >
-          <BiSave size={35} color={"#4a5666"}/>
+          <BiSave size={20}/>
+          <span>Save Post</span>
         </button>
 
       </div>
