@@ -139,12 +139,11 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
             max="250"
             defaultValue={fontSize}
             onChange={(e) => {
-              const size = parseInt(e.target.value);
-              setFontSize(size);
             }}
-            onMouseUp={(e) => {
-              
-              editor.chain().focus().setFontSize(`${fontSize}px`).run();
+            onMouseUp={(e: React.MouseEvent<HTMLInputElement>) => {
+              const size = parseInt(e.currentTarget.value);
+              setFontSize(size);
+              editor.chain().focus().setFontSize(`${size}px`).run();
             }}
             className="w-full h-2 bg-gray-200 rounded-lg appearance-auto cursor-pointer accent-[#2f54a5]"
           />
