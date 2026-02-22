@@ -31,7 +31,7 @@ const SideBar = () => {
   border-r border-gray-200 shadow-sm">
     <div className="w-full flex items-center justify-center pb-4 mb-2 border-b border-gray-200">
       <h2 className="font-extrabold text-3xl  bg-[#2f54a5] text-transparent bg-clip-text">
-        Gglober
+        Globlog <p className='text-xs font-extralight text-[#2f54a5]'>.bob</p>
       </h2>
     </div>
     <SidebarButton IconComp={FaHome} btnTitle='Home Page' linkTo='/' />
