@@ -1,3 +1,4 @@
+import { useAppSelector } from "@/lib/store";
 import Image from "next/image";
 import React from 'react'
 
@@ -5,6 +6,7 @@ type UserProfileData =  {
   username: string;
   avatar_url?: string;
   descrption: string;
+  user_id: string;
 }
 
 const UserProfileComponent = ({username, avatar_url, descrption}: UserProfileData) => {  
@@ -12,8 +14,7 @@ const UserProfileComponent = ({username, avatar_url, descrption}: UserProfileDat
     (avatar_url.startsWith("http://") ||
     avatar_url.startsWith("https://") ||
     avatar_url.startsWith("/"));
-
-  
+  const user = useAppSelector(state => state.userData);
   
   return (
     <div className="w-full bg-white shadow-lg rounded-2xl p-3 md:p-8 border border-gray-200">
@@ -42,6 +43,9 @@ const UserProfileComponent = ({username, avatar_url, descrption}: UserProfileDat
               @{username.toLowerCase()}
             </span>
           </div>
+          {user.loggedIn && user.username !== username && <div className="flex flex-col items-center">
+            <p>this is where login component will be</p>
+          </div>}
         </div>
         <div className="my-1 md:my-6  border-t"/>
         <p className="text-gray-700 whitespace-pre-wrap leading-relaxed text-[15px]">
