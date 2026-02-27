@@ -5,7 +5,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import PostList from '../posts/PostList';
 
-const LIMIT = 10;
+const LIMIT = 5;
 
 const UserPosts = ({user_id} : {user_id: string}) => {
   const [PostFetchState, setPostFetchState] = useState({
@@ -26,12 +26,25 @@ const UserPosts = ({user_id} : {user_id: string}) => {
         }
       }
     );
-    const newPosts = res.data;
+    const newPosts: Array<Post> = res.data;
     if (newPosts.length < LIMIT) {
       setPostFetchState(st => ({...st, hasMore: false}));
     }
-    setPosts(prev => [...prev, ...newPosts]);
-    setPostFetchState(st => ({...st, skip: st.skip + LIMIT, loading: false}));
+    setPosts(prev => {
+      let filterLookup: any = {};
+      if(prev.length > 10) {
+        prev.slice(prev.length - 11, prev.length -1).forEach(p => {
+          filterLookup[p.id] = p.id
+        })
+      } else {
+        prev.forEach(p => {
+          filterLookup[p.id] = p.id
+        })
+      }
+      const filtered = newPosts.filter(p => !filterLookup[p.id]);
+      return [...prev, ...filtered]
+    });
+    setPostFetchState(st => ({...st, skip: PostFetchState.skip + LIMIT, loading: false}));
   };
 
   useEffect(() => {

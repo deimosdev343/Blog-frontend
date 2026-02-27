@@ -1,3 +1,5 @@
+"use client";
+
 import { useAppSelector } from "@/lib/store";
 import Image from "next/image";
 import React from 'react'
