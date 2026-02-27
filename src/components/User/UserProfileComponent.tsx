@@ -11,7 +11,7 @@ type UserProfileData =  {
   user_id: string;
 }
 
-const UserProfileComponent = ({username, avatar_url, descrption}: UserProfileData) => {  
+const UserProfileComponent = ({username, avatar_url, descrption, user_id}: UserProfileData) => {  
   const avatarValid = avatar_url &&
     (avatar_url.startsWith("http://") ||
     avatar_url.startsWith("https://") ||
