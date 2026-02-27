@@ -36,18 +36,19 @@ const UserProfileComponent = ({username, avatar_url, descrption}: UserProfileDat
               </div>
             )}
           </div>
-          <div className="flex md:flex-col items-center justify-between ">
+          <div className="flex gap-2 items-center justify-between ">
             <h1 className="text-md md:text-3xl font-semibold ">
               {username}
             </h1>
-
             <span className="text-gray-500 md:text-sm ">
               @{username.toLowerCase()}
             </span>
           </div>
-          {user.loggedIn && user.username !== username && <div className="flex flex-col items-center">
-            <p>this is where login component will be</p>
-          </div>}
+          <div className="w-full flex justify-end-safe md:p-5 md:mt-2  ">
+            {user.loggedIn && user.username !== username &&  
+              <p>this is where login component will be</p>
+            }
+          </div>
         </div>
         <div className="my-1 md:my-6  border-t"/>
         <p className="text-gray-700 whitespace-pre-wrap leading-relaxed text-[15px]">
