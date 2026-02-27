@@ -11,7 +11,7 @@ export const GET = async (req: NextRequest) => {
 
     const skip = searchParams.get("skip") ?? "0";
     const limit = searchParams.get("limit") ?? "10";
-    
+    console.log(process.env.BACKEND_API);
     const backendRes = await axios.get(
       `${process.env.BACKEND_API}/posts`,
       {

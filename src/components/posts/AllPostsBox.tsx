@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import {Post} from '../../types/postTypes'
 import axios from 'axios';
 import PostList from './PostList';
@@ -19,11 +19,24 @@ const AllPostsBox = () => {
     if (PostFetchState.loading || !PostFetchState.hasMore) return;
     setPostFetchState(st => ({...st, loading: true}));
     const res = await axios.get(`/api/post?skip=${PostFetchState.skip}&limit=${LIMIT}`);
-    const newPosts = res.data;
-    if (newPosts.length < LIMIT) {
+    if (res.data < LIMIT) {
       setPostFetchState(st => ({...st, hasMore: false}));
     }
-    setPosts(prev => [...prev, ...newPosts]);
+    const newPosts: Array<Post> = res.data;
+    setPosts(prev => {
+      let filterLookup: any = {};
+      if(prev.length > 10) {
+        prev.slice(prev.length - 11, prev.length -1).forEach(p => {
+          filterLookup[p.id] = p.id
+        })
+      } else {
+        prev.forEach(p => {
+          filterLookup[p.id] = p.id
+        })
+      }
+      const filtered = newPosts.filter(p => !filterLookup[p.id]);
+      return [...prev, ...filtered]
+    });
     setPostFetchState(st => ({...st, skip: st.skip + LIMIT, loading: false}));
   };
 
