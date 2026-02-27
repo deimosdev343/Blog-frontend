@@ -63,8 +63,8 @@ const PostCard = ({id,username,title,previewText,avatarUrl,user_id}:PostCardProp
       <div className="pt-2">
         <Link
           href={`/post/${id}`}
-          className=" inline-flex items-center gap-2 px-5 py-2.5 rounded-xl
-          bg-[#3e68c4] text-white font-semibold shadow-md hover:shadow-lg hover:scale-[1.03] transition-all"
+          className=" inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border hover:bg-slate-100
+          border-[#2f54a5] text-black font-semibold shadow-md hover:shadow-lg hover:scale-[1.03] transition-all"
         >
           Go to post
           <FaCircleArrowRight />
