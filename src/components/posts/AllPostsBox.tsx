@@ -5,7 +5,7 @@ import {Post} from '../../types/postTypes'
 import axios from 'axios';
 import PostList from './PostList';
 
-const LIMIT = 10;
+const LIMIT = 5;
 
 const AllPostsBox = () => {
   const [PostFetchState, setPostFetchState] = useState({
@@ -37,7 +37,7 @@ const AllPostsBox = () => {
       const filtered = newPosts.filter(p => !filterLookup[p.id]);
       return [...prev, ...filtered]
     });
-    setPostFetchState(st => ({...st, skip: st.skip + LIMIT, loading: false}));
+    setPostFetchState(st => ({...st, skip: PostFetchState.skip + LIMIT, loading: false}));
   };
 
   useEffect(() => {
