@@ -31,7 +31,7 @@ const UserPosts = ({user_id} : {user_id: string}) => {
       setPostFetchState(st => ({...st, hasMore: false}));
     }
     setPosts(prev => {
-      let filterLookup: any = {};
+      let filterLookup: {[key: number]: number} = {};
       if(prev.length > 10) {
         prev.slice(prev.length - 11, prev.length -1).forEach(p => {
           filterLookup[p.id] = p.id

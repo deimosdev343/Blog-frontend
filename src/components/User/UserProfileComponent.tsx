@@ -2,7 +2,7 @@
 
 import { useAppSelector } from "@/lib/store";
 import Image from "next/image";
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 type UserProfileData =  {
   username: string;
@@ -11,13 +11,17 @@ type UserProfileData =  {
   user_id: string;
 }
 
-const UserProfileComponent = ({username, avatar_url, descrption, user_id}: UserProfileData) => {  
+const UserProfileComponent = ({username, avatar_url, descrption, user_id}: UserProfileData) => {
+    
   const avatarValid = avatar_url &&
     (avatar_url.startsWith("http://") ||
     avatar_url.startsWith("https://") ||
     avatar_url.startsWith("/"));
   const user = useAppSelector(state => state.userData);
-  
+  const [following, setFollowing] = useState<boolean>(false);
+  useEffect(() => {
+
+  }, [])
   return (
     <div className="w-full bg-white shadow-lg rounded-2xl p-3 md:p-8 border border-gray-200">
         <div className="flex items-center gap-6">
