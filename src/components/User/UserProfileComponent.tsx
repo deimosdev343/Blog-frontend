@@ -1,8 +1,11 @@
 "use client";
 
 import { useAppSelector } from "@/lib/store";
+import axios from "axios";
 import Image from "next/image";
 import React, { useEffect, useState } from 'react'
+import { FaMinusCircle, FaPlusCircle } from "react-icons/fa";
+import { FaCircleArrowRight } from "react-icons/fa6";
 
 type UserProfileData =  {
   username: string;
@@ -19,8 +22,20 @@ const UserProfileComponent = ({username, avatar_url, descrption, user_id}: UserP
     avatar_url.startsWith("/"));
   const user = useAppSelector(state => state.userData);
   const [following, setFollowing] = useState<boolean>(false);
-  useEffect(() => {
 
+  const fetchFollowStatus = async () => {
+    try {
+    if(!user.loggedIn || user.username !== username) {
+      return setFollowing(false);
+    }
+    const res = await axios.get(`/api/follow/checkfollow`);
+    console.log(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  useEffect(() => {
+    fetchFollowStatus();
   }, [])
   return (
     <div className="w-full bg-white shadow-lg rounded-2xl p-3 md:p-8 border border-gray-200">
@@ -50,7 +65,27 @@ const UserProfileComponent = ({username, avatar_url, descrption, user_id}: UserP
           </div>
           <div className="w-full flex justify-end-safe md:p-5 md:mt-2  ">
             {user.loggedIn && user.username !== username &&  
-              <p>this is where login component will be</p>
+              !following 
+                ?<button 
+                  className=" inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border hover:bg-slate-100
+                    border-[#2f54a5] text-black font-semibold shadow-md hover:shadow-lg hover:scale-[1.03] transition-all"
+                  onClick={() => {
+                    setFollowing(true);
+                  }}
+                >
+                  Follow
+                  <FaPlusCircle/>
+                </button> 
+                :<button
+                  className=" inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border hover:bg-slate-100
+                    border-[#2f54a5] text-black font-semibold shadow-md hover:shadow-lg hover:scale-[1.03] transition-all"
+                  onClick={() => {
+                    setFollowing(false);
+                  }}
+                >
+                  Unfollow
+                  <FaMinusCircle/>
+                </button>
             }
           </div>
         </div>
