@@ -5,16 +5,26 @@ type ApiResponseError = {
   msg: string
 }
 
-
 //Check Follow Status
-//Also namming all your api calls GET/POST surely will never cause problems
+//Also namming all your api calls GET/POST without any description surely won't cause problems
 //Next.js is such dogshit
 export const GET = async (req: NextRequest) => {
   try {
     const {user_id} = await req.json();
     const cks = await cookies();
     const token =  cks.get("token")?.value;
-    
+    const res = await axios.get(
+      `${process.env.BACKEND_API}/user/${user_id}/follow-stats`,
+      {
+        headers:{
+          Authorization:`bearer ${token}`
+        }
+      }
+    );
+    return NextResponse.json(
+      res.data,
+      {status:200}
+    );
   } catch (err) {
     console.log(err);
     const axErr = err as AxiosError<ApiResponseError>;
