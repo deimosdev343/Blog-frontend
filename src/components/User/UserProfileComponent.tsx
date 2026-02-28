@@ -5,7 +5,6 @@ import axios from "axios";
 import Image from "next/image";
 import React, { useEffect, useState } from 'react'
 import { FaMinusCircle, FaPlusCircle } from "react-icons/fa";
-import { FaCircleArrowRight } from "react-icons/fa6";
 
 type UserProfileData =  {
   username: string;
@@ -15,7 +14,7 @@ type UserProfileData =  {
 }
 
 const UserProfileComponent = ({username, avatar_url, descrption, user_id}: UserProfileData) => {
-    
+
   const avatarValid = avatar_url &&
     (avatar_url.startsWith("http://") ||
     avatar_url.startsWith("https://") ||
@@ -23,6 +22,18 @@ const UserProfileComponent = ({username, avatar_url, descrption, user_id}: UserP
   const user = useAppSelector(state => state.userData);
   const [following, setFollowing] = useState<boolean>(false);
 
+  const followUser = async () => {
+    try {
+      const res = await axios.post(
+        `/api/follow`, 
+        {user_id: user_id}
+      )
+      setFollowing(true);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  
   const fetchFollowStatus = async () => {
     try {
     if(!user.loggedIn || user.username !== username) {
