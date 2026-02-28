@@ -28,12 +28,22 @@ const UserProfileComponent = ({username, avatar_url, descrption, user_id}: UserP
         `/api/follow`, 
         {user_id: user_id}
       )
-      
+      setFollowing(true);      
     } catch (err) {
       console.log(err);
     }
   }
 
+  const unfollowUser = async () => {
+    try {
+      const res = await axios.delete(
+        `/api/follow?user_id=${user_id}`, 
+      )
+      setFollowing(false);      
+    } catch (err) {
+      console.log(err);
+    }
+  }
   const fetchFollowStatus = async () => {
     try {
     if(!user.loggedIn || user.username == username) {
@@ -93,7 +103,8 @@ const UserProfileComponent = ({username, avatar_url, descrption, user_id}: UserP
                   className=" inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border hover:bg-slate-100
                     border-[#2f54a5] text-black font-semibold shadow-md hover:shadow-lg hover:scale-[1.03] transition-all"
                   onClick={() => {
-                    setFollowing(false);
+                    unfollowUser();
+
                   }}
                 >
                   Unfollow

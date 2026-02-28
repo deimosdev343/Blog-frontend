@@ -67,13 +67,13 @@ export const POST = async (req: NextRequest) => {
   }
 }
 
-
 export const DELETE = async (req: NextRequest) => {
   try {
-    const {user_id} = await req.json();
+    const {searchParams} = new URL(req.url);
+    const user_id = searchParams.get("user_id");  
     const cks = await cookies();
     const token =  cks.get("token")?.value;
-    const res = await axios.delete(`/${process.env.BACKEND_API}/user/follow/${user_id}`, 
+    const res = await axios.delete(`${process.env.BACKEND_API}/follow/${user_id}`, 
       {
         headers:{
           Authorization: `bearer ${token}`
