@@ -12,7 +12,7 @@ export const POST = async (req: NextRequest) => {
     const cks = await cookies();
     const token =  cks.get("token")?.value;
 
-    const res = await axios.post(`/${process.env.BACKEND_API}/user/follow`, 
+    const res = await axios.post(`${process.env.BACKEND_API}/user/follow`, 
       {
         follow_user_id: user_id
       },
