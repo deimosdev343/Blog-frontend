@@ -14,7 +14,7 @@ export const GET = async (req: NextRequest) => {
     const cks = await cookies();
     const token =  cks.get("token")?.value;
     const res = await axios.get(
-      `${process.env.BACKEND_API}/user/${user_id}/follow-stats`,
+      `${process.env.BACKEND_API}/user/${user_id}/is-following`,
       {
         headers:{
           Authorization:`bearer ${token}`
