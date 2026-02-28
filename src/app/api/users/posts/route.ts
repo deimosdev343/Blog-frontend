@@ -22,7 +22,7 @@ export const GET = async (req: NextRequest) => {
         }
       }
     );
-    console.log(backendRes.data);
+    
     return NextResponse.json(
       backendRes.data,
       {status: 200}

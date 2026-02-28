@@ -35,7 +35,7 @@ const page = async ({params}: PageProps) => {
           username={userData.username}
           descrption={userData.descrption}
           avatar_url={userData.avatar_url}
-          user_id={userData.id}
+          user_id={slug}
         />
         <UserPosts
           user_id={slug}

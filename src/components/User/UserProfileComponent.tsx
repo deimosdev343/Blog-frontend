@@ -28,7 +28,7 @@ const UserProfileComponent = ({username, avatar_url, descrption, user_id}: UserP
         `/api/follow`, 
         {user_id: user_id}
       )
-      setFollowing(true);
+      
     } catch (err) {
       console.log(err);
     }
@@ -36,18 +36,20 @@ const UserProfileComponent = ({username, avatar_url, descrption, user_id}: UserP
 
   const fetchFollowStatus = async () => {
     try {
-    if(!user.loggedIn || user.username !== username) {
+    if(!user.loggedIn || user.username == username) {
       return setFollowing(false);
     }
-    const res = await axios.get(`/api/follow/checkfollow`);
-    console.log(res.data);
+    const res = await axios.get(`/api/follow?user_id=${user_id}`);
+    setFollowing(res.data.is_following);
     } catch (err) {
       console.log(err);
     }
   }
   useEffect(() => {
     fetchFollowStatus();
-  }, [])
+  }, [user.loggedIn]);
+
+
   return (
     <div className="w-full bg-white shadow-lg rounded-2xl p-3 md:p-8 border border-gray-200">
         <div className="flex items-center gap-6">
