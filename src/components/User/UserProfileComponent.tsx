@@ -87,8 +87,8 @@ const UserProfileComponent = ({username, avatar_url, descrption, user_id}: UserP
             </span>
           </div>
           <div className="w-full flex justify-end-safe md:p-5 md:mt-2  ">
-            {user.loggedIn && user.username !== username &&  
-              !following 
+            {user.loggedIn && user.username !== username &&  <>
+              {!following 
                 ?<button 
                   className=" inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border hover:bg-slate-100
                     border-[#2f54a5] text-black font-semibold shadow-md hover:shadow-lg hover:scale-[1.03] transition-all"
@@ -109,7 +109,8 @@ const UserProfileComponent = ({username, avatar_url, descrption, user_id}: UserP
                 >
                   Unfollow
                   <FaMinusCircle/>
-                </button>
+                </button>}
+            </>
             }
           </div>
         </div>
