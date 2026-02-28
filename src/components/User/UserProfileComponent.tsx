@@ -22,7 +22,7 @@ const UserProfileComponent = ({username, avatar_url, descrption, user_id}: UserP
     <div className="w-full bg-white shadow-lg rounded-2xl p-3 md:p-8 border border-gray-200">
         <div className="flex items-center gap-6">
           <div 
-            className="relative w-10 h-10 md:w-24 md:h-24 rounded-full
+            className="relative w-10 h-10 md:w-24 md:h-15 rounded-4xl
               overflow-hidden bg-gray-100"
           >
             {avatarValid ? (<Image
@@ -36,11 +36,11 @@ const UserProfileComponent = ({username, avatar_url, descrption, user_id}: UserP
               </div>
             )}
           </div>
-          <div className="flex gap-2 items-center justify-between ">
+          <div className="flex gap-2 items-center justify-center p-2 ">
             <h1 className="text-md md:text-3xl font-semibold ">
               {username}
             </h1>
-            <span className="text-gray-500 md:text-sm ">
+            <span className="text-gray-500 md:text-sm md:mt-1">
               @{username.toLowerCase()}
             </span>
           </div>

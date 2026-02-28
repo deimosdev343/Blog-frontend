@@ -5,6 +5,7 @@ type ApiResponseError = {
   msg: string
 }
 
+// follow user
 export const POST = async (req: NextRequest) => {
   try {
     const {user_id} = await req.json();
