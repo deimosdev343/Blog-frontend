@@ -3,6 +3,7 @@
 import { Post } from '@/types/postTypes';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import PostList from './PostList';
 const LIMIT = 5;
 
 const FollowingPosts = () => {
@@ -44,7 +45,11 @@ const FollowingPosts = () => {
 
   console.log(posts);
   return (
-    <div>FollowingPosts</div>
+    <PostList 
+      posts={posts}
+      fetchPosts={fetchPosts}
+      hasMore={PostFetchState.hasMore}
+    />
   )
 }
 
