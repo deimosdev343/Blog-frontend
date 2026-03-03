@@ -8,7 +8,6 @@ type ApiResponseError = {
 export const GET = async (req: NextRequest) => { 
   try {
     const {searchParams} = new URL(req.url);
-
     const skip = searchParams.get("skip") ?? "0";
     const limit = searchParams.get("limit") ?? "10";
      const cks = await cookies();
