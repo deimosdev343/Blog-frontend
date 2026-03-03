@@ -1,7 +1,48 @@
-import React from 'react'
+"use client";
+
+import { Post } from '@/types/postTypes';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+const LIMIT = 5;
 
 const FollowingPosts = () => {
-  
+  const [PostFetchState, setPostFetchState] = useState({
+    skip: 0,
+    loading: false,
+    hasMore: true
+  });
+  const [posts, setPosts] = useState<Post[]>([]);
+  const fetchPosts = async () => {
+    if (PostFetchState.loading || !PostFetchState.hasMore) return;
+    setPostFetchState(st => ({...st, loading: true}));
+    const res = await axios.get(`/api/post/following?skip=${PostFetchState.skip}&limit=${LIMIT}`);
+    if (res.data < LIMIT) {
+      setPostFetchState(st => ({...st, hasMore: false}));
+    }
+    const newPosts: Array<Post> = res.data;
+    setPosts(prev => {
+      let filterLookup: {[key: number]: number} = {};
+      if(prev.length > 10) {
+        prev.slice(prev.length - 11, prev.length -1).forEach(p => {
+          filterLookup[p.id] = p.id
+        })
+      } else {
+        prev.forEach(p => {
+          filterLookup[p.id] = p.id
+        })
+      }
+      const filtered = newPosts.filter(p => !filterLookup[p.id]);
+      return [...prev, ...filtered]
+    });
+    setPostFetchState(st => ({...st, skip: PostFetchState.skip + LIMIT, loading: false}));
+  };
+
+
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
+  console.log(posts);
   return (
     <div>FollowingPosts</div>
   )

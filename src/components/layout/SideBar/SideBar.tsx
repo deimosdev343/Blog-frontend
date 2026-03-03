@@ -17,7 +17,6 @@ const SideBar = () => {
   const user = useAppSelector(state => state.userData);
   const dispatch = useAppDispatch();
   const logout = async () => {
-    console.log('enter')
     try {
       const res = await axios.get(`/api/auth/logout`);
       dispatch(logoutUser());
