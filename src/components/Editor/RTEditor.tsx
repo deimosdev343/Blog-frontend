@@ -75,94 +75,103 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
         onChange={(e) => setTitle(e.target.value)}
         className="w-full text-5xl font-bold placeholder:text-gray-400 focus:outline-none mb-8 bg-transparent text-gray-900"
       />
+      <div className="flex w-full items-center gap-5">
+        <div className="flex flex-col items-center justify-center">
+          <div className="flex items-center font-bold mb-3 ">
+            <h2 className="font-bold text-lg text-gray-800">Text Styling</h2>
+          </div>
 
-      <div className="flex items-center font-bold mb-3 mt-6">
-        <h2 className="font-bold text-lg text-gray-800">Text Styling</h2>
-      </div>
+          <div className="flex gap-2 mb-6 text-sm">
+            <ToolbarButton
+              active={editor.isActive("bold")}
+              onClick={() => editor.chain().focus().toggleBold().run()}
+              label="B"
+            />
+            <ToolbarButton
+              active={editor.isActive("italic")}
+              onClick={() => editor.chain().focus().toggleItalic().run()}
+              label="I"
+            />
+            <ToolbarButton
+              active={editor.isActive("blockQuote")}
+              onClick={() => editor.chain().focus().toggleBlockquote().run()}
+              label={`"`}
+            />
+            <ToolbarButton
+              active={editor.isActive("codeBlock")}
+              onClick={() => editor.chain().focus().toggleCodeBlock().run()}
+              label="</>"
+            />
+          </div>
+        </div>
+        <div className="flex flex-col items-center justify-center">
 
-      <div className="flex gap-2 mb-6 text-sm">
-        <ToolbarButton
-          active={editor.isActive("bold")}
-          onClick={() => editor.chain().focus().toggleBold().run()}
-          label="B"
-        />
-        <ToolbarButton
-          active={editor.isActive("italic")}
-          onClick={() => editor.chain().focus().toggleItalic().run()}
-          label="I"
-        />
-        <ToolbarButton
-          active={editor.isActive("blockQuote")}
-          onClick={() => editor.chain().focus().toggleBlockquote().run()}
-          label={`"`}
-        />
-        <ToolbarButton
-          active={editor.isActive("codeBlock")}
-          onClick={() => editor.chain().focus().toggleCodeBlock().run()}
-          label="</>"
-        />
-      </div>
-      <div className="flex items-center font-bold mb-3">
-        <h2 className="font-bold text-lg text-gray-800">Text Alignment</h2>
-      </div>
-      <div className="flex gap-2 mb-6 text-sm">
-        <ToolbarButton
-          active={editor.isActive({ textAlign: "left" })}
-          onClick={() =>
-            editor.chain().focus().setTextAlign("left").run()
-          }
-          label="Left"
-        />
-        <ToolbarButton
-          active={editor.isActive({ textAlign: "center" })}
-          onClick={() =>
-            editor.chain().focus().setTextAlign("center").run()
-          }
-          label="Center"
-        />
-        <ToolbarButton
-          active={editor.isActive({ textAlign: "right" })}
-          onClick={() =>
-            editor.chain().focus().setTextAlign("right").run()
-          }
-          label="right"
-        />
-      </div>
-      <div className="flex items-center font-bold mb-3">
-        <h2 className="font-bold text-lg text-gray-800">Text Size</h2>
-      </div>
-      <div className="flex gap-4 mb-6 items-center">
-        <div className="flex-1">
-          <input
-            type="range"
-            min="1"
-            max="250"
-            defaultValue={fontSize}
-            onChange={(e) => {
-            }}
-            onMouseUp={(e: React.MouseEvent<HTMLInputElement>) => {
-              const size = parseInt(e.currentTarget.value);
-              setFontSize(size);
-              editor.chain().focus().setFontSize(`${size}px`).run();
-            }}
-            className="w-full h-2 bg-gray-200 rounded-lg appearance-auto cursor-pointer accent-[#2f54a5]"
-          />
+          <div className="flex items-center font-bold mb-3">
+            <h2 className="font-bold text-lg text-gray-800">Text Alignment</h2>
+          </div>
+          <div className="flex gap-2 mb-6 text-sm">
+            <ToolbarButton
+              active={editor.isActive({ textAlign: "left" })}
+              onClick={() =>
+                editor.chain().focus().setTextAlign("left").run()
+              }
+              label="Left"
+            />
+            <ToolbarButton
+              active={editor.isActive({ textAlign: "center" })}
+              onClick={() =>
+                editor.chain().focus().setTextAlign("center").run()
+              }
+              label="Center"
+            />
+            <ToolbarButton
+              active={editor.isActive({ textAlign: "right" })}
+              onClick={() =>
+                editor.chain().focus().setTextAlign("right").run()
+              }
+              label="right"
+            />
+          </div>
         </div>
-        <div className="flex items-center gap-2">
-          <input
-            type="number"
-            value={fontSize}
-            onChange={(e) => {
-              const size = Math.max(1, Math.min(250, parseInt(e.target.value) || 1));
-              setFontSize(size);
-              editor.chain().focus().setFontSize(`${size}px`).run();
-            }}
-            min="1"
-            max="250"
-            className="w-16  p-1 border border-gray-200 rounded-lg focus:outline-none focus:border-indigo-300 transition-all text-gray-700 font-medium text-center"
-          />
-          <span className="text-gray-600 font-medium">px</span>
+        <div className="flex flex-col items-center justify-center">
+
+          <div className="flex items-center font-bold mb-3">
+            <h2 className="font-bold text-lg text-gray-800">Text Size</h2>
+          </div>
+          <div className="flex gap-4 mb-6 items-center">
+            <div className="flex-1">
+              <input
+                type="range"
+                min="1"
+                max="250"
+                defaultValue={fontSize}
+                onChange={(e) => {
+                }}
+                onMouseUp={(e: React.MouseEvent<HTMLInputElement>) => {
+                  const size = parseInt(e.currentTarget.value);
+                  setFontSize(size);
+                  editor.chain().focus().setFontSize(`${size}px`).run();
+                }}
+                className="w-full h-2 bg-gray-200 rounded-lg appearance-auto cursor-pointer accent-[#2f54a5]"
+              />
+            </div>
+            <div className="flex items-center gap-2">
+              <input
+                type="number"
+                value={fontSize}
+                onChange={(e) => {
+                  const size = Math.max(1, Math.min(250, parseInt(e.target.value) || 1));
+                  setFontSize(size);
+                  editor.chain().focus().setFontSize(`${size}px`).run();
+                }}
+                min="1"
+                max="250"
+                className="w-16  p-1 border border-gray-200 rounded-lg focus:outline-none focus:border-indigo-300 transition-all text-gray-700 font-medium text-center"
+              />
+              <span className="text-gray-600 font-medium">px</span>
+            </div>
         </div>
+      </div>
       </div>
       <EditorContent editor={editor} />
       <div className="w-full flex items-center p-2 mt-6">
