@@ -75,7 +75,7 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
         onChange={(e) => setTitle(e.target.value)}
         className="w-full text-5xl font-bold placeholder:text-gray-400 focus:outline-none mb-8 bg-transparent text-gray-900"
       />
-      <div className="flex w-full items-center gap-5">
+      <div className="flex w-full items-center gap-5 justify-between">
         <div className="flex flex-col items-center justify-center">
           <div className="flex items-center font-bold mb-3 ">
             <h2 className="font-bold text-lg text-gray-800">Text Styling</h2>
