@@ -36,7 +36,7 @@ const SideBar = () => {
     </div>
     <SidebarButton IconComp={FaHome} btnTitle='Home Page' linkTo='/' />
     <SidebarButton IconComp={FaNoteSticky} btnTitle='My Posts' linkTo='/' />
-    <SidebarButton IconComp={FaUsers} btnTitle='Following' linkTo='/' />
+    <SidebarButton IconComp={FaUsers} btnTitle='Following' linkTo='/following' />
     <SidebarButton IconComp={LuBookMarked} btnTitle='Bookmarks' linkTo='/' />
     <SidebarButton IconComp={LuSettings} btnTitle='Settings' linkTo='/' />
 
