@@ -73,9 +73,9 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
         placeholder="Title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        className="w-full text-5xl font-bold placeholder:text-gray-400 focus:outline-none mb-8 bg-transparent text-gray-900"
+        className="w-full text-5xl font-bold placeholder:text-gray-400 focus:outline-none mb-8 bg-transparent text-gray-900 border-b border-slate-500/25"
       />
-      <div className="flex w-full items-center gap-5 justify-between">
+      <div className="flex w-full items-center gap-5 justify-between shadow-md p-5 border border-slate-400/20 mb-2 rounded-xl bg-white">
         <div className="flex flex-col items-center justify-center">
           <div className="flex items-center font-bold mb-3 ">
             <h2 className="font-bold text-lg text-gray-800">Text Styling</h2>
@@ -176,7 +176,9 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
       <EditorContent editor={editor} />
       <div className="w-full flex items-center p-2 mt-6">
         <button
-          className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-3 mt-4 rounded-xl cursor-pointer transition-all duration-200 shadow-md hover:shadow-lg active:scale-95"
+          className="flex items-center gap-2 border border-slate-400/40 text-[#2f54a5] 
+            hover:bg-slate-100  font-semibold px-6 py-3 mt-4 rounded-xl cursor-pointer
+            transition-all duration-500 shadow-md hover:shadow-lg active:scale-95"
           onClick={() => {
             onSave(title, editor.getHTML());
             editor.commands.setContent("");
@@ -184,8 +186,10 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
             
           }}
         >
-          <BiSave size={20}/>
-          <span>Save Post</span>
+          <div className="bg-indigo-100 p-2 rounded-xl">
+            <BiSave size={20}/>
+          </div>
+          <span className="mt-1">Save Post</span>
         </button>
 
       </div>
