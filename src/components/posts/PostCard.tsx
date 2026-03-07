@@ -3,6 +3,7 @@ import DefaultAvatar from '../../static/user.png';
 import Image from 'next/image';
 import { FaCircleArrowRight } from 'react-icons/fa6';
 import Link from 'next/link';
+import PostVoteRatio from './PostVoteRatio';
 
 type PostCardProps = {
   id: number
@@ -72,7 +73,7 @@ const PostCard = ({
         />
       </div>
       <div className='w-full flex items-center p-2 justify-between'>
-        <div className="pt-2">
+        <div className="p-1 w-[30%]">
           <Link
             href={`/post/${id}`}
             className=" inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border hover:bg-slate-100
@@ -82,7 +83,14 @@ const PostCard = ({
             <FaCircleArrowRight />
           </Link>
         </div>
-        
+        {upvotes != undefined && downvotes != undefined && 
+          <div className='w-[30%] flex flex-col items-start gap-2'>
+            <p className='text-sm font-semibold'>Likes: {upvotes}</p>
+            <p className='text-sm font-semibold'>dislikes: {downvotes}</p>
+
+            <PostVoteRatio upvotes={upvotes} downvotes={downvotes}/>
+          </div>
+        }
       </div>
 
     </article>
