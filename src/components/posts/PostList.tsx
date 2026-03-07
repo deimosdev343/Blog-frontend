@@ -36,6 +36,8 @@ const PostList = ({posts, fetchPosts, hasMore} : PostListProps) => {
             id={pst.id}
             username={pst.username}
             user_id={pst.author_id}
+            upvotes={pst.upvotes}
+            downvotes={pst.downvotes}
           />)}
 
         </InfiniteScroll>

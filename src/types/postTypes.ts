@@ -6,5 +6,7 @@ export interface Post {
   username: string,
   user_avatar?: string
   created_at?: Date,
-  updated_at?: Date
+  updated_at?: Date,
+  upvotes?: number,
+  downvotes?: number
 }

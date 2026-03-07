@@ -71,16 +71,18 @@ const PostCard = ({
           bg-gradient-to-t from-white to-transparent" 
         />
       </div>
-      <div className="pt-2">
-        <Link
-          href={`/post/${id}`}
-          className=" inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border hover:bg-slate-100
-          border-[#2f54a5] text-black font-semibold shadow-md hover:shadow-lg hover:scale-[1.03] transition-all"
-        >
-          Go to post
-          <FaCircleArrowRight />
-        </Link>
-
+      <div className='w-full flex items-center p-2 justify-between'>
+        <div className="pt-2">
+          <Link
+            href={`/post/${id}`}
+            className=" inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border hover:bg-slate-100
+            border-[#2f54a5] text-black font-semibold shadow-md hover:shadow-lg hover:scale-[1.03] transition-all"
+          >
+            Go to post
+            <FaCircleArrowRight />
+          </Link>
+        </div>
+        
       </div>
 
     </article>
