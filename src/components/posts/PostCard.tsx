@@ -10,7 +10,9 @@ type PostCardProps = {
   previewText: string,
   username: string,
   avatarUrl?: string,
-  user_id: number
+  user_id: number,
+  upvotes?: number,
+  downvotes?: number
 }
 
 function isValidUrl(url: string): boolean {
@@ -22,7 +24,16 @@ function isValidUrl(url: string): boolean {
   }
 }
 
-const PostCard = ({id,username,title,previewText,avatarUrl,user_id}:PostCardProps) => {
+const PostCard = ({
+    id,
+    username,
+    title,
+    previewText,
+    avatarUrl,
+    user_id,
+    upvotes,
+    downvotes
+  }:PostCardProps) => {
 
   return (
     <article className=" group relative w-full bg-white/80 backdrop-blur-sm rounded-3xl
