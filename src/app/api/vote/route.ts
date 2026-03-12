@@ -20,10 +20,13 @@ export const GET = async (req: NextRequest) => {
       )
     }
     const backendRes = await axios.get(
-      `${process.env.BACKEND_API}/vote/${post_id}`,
+      `${process.env.BACKEND_API}/vote/`,
       {
         headers:{
           Authorization: `bearer ${token}`
+        },
+        params:{
+          post_id
         }
       }
     );
