@@ -1,8 +1,11 @@
+"use client";
+
 import { Post } from '@/types/postTypes'
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect } from 'react'
 import DefaultAvatar from '../../static/user.png';
+import axios from 'axios';
 
 type PostCardProps = {
   id: number
@@ -23,6 +26,24 @@ function isValidUrl(url: string): boolean {
 }
 
 const FullPostComponent = ({id,username,title,content,avatarUrl,user_id}:PostCardProps) => {
+
+  const fetchVotes = async () => {
+    try {
+      const res = await axios.get('/api/vote', {
+        params:{
+          post_id: id
+        }
+      });
+      console.log(res);
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  useEffect(() => {
+    fetchVotes();
+  }, []);
+
   return (
     <div 
       className="w-full p-5 flex flex-col "

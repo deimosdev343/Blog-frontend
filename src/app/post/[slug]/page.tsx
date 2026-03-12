@@ -22,7 +22,6 @@ const page = async ({params}: PageProps) => {
   const slug = (await params).slug;
   let post: Post | null = await getPost(slug);
 
-  console.log(post);
   if(!post) {
     return <div>Post Not Found</div>
   }
