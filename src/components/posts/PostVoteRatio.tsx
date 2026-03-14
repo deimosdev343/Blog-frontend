@@ -14,11 +14,11 @@ const PostVoteRatio = ({ upvotes, downvotes }: VoteBarProps) => {
   return (
     <div className="relative w-full h-3 rounded overflow-hidden flex">
       <div
-        className="bg-green-500 transition-all"
+        className="bg-green-400 transition-all"
         style={{ width: `${upRatio}%` }}
       />
       <div
-        className="bg-red-500 transition-all"
+        className="bg-red-400 transition-all"
         style={{ width: `${downRatio}%` }}
       />
     </div>

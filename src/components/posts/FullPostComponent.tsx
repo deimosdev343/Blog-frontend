@@ -96,15 +96,17 @@ const FullPostComponent = ({id,username,title,content,avatarUrl,user_id}:PostCar
         </div>
       </div>
       <div className='w-full flex items-center p-1 justify-end'>
-        <div className='w-[33%] flex flex-col '>
+        <div className='w-[28%] flex flex-col '>
           <div className='w-full flex justify-between'>
             <div className={`flex flex-col items-center p-2 ${voteState.user_votes == -1 && "text-red-400"}`}>
               {voteState.user_votes == -1 ? <FaThumbsDown size={30}/>  : <FaRegThumbsDown size={30}/>}
               <p className="text-black font-semibold">Dislikes: {voteState.downvotes}</p>
             </div>
-            <div className={`flex flex-col items-center p-2 ${voteState.user_votes == 1 && "text-red-400"}`}>
-              {voteState.user_votes == 1 ? <FaThumbsUp size={30}/>  : <FaRegThumbsUp size={30} />}
-              <p className="text-black font-semibold">Likes: {voteState.downvotes}</p>
+            <div className={`flex flex-col items-center p-2 ${voteState.user_votes == 1 && "text-green-400"}`}>
+              <button className="cursor-pointer">
+                {voteState.user_votes == 1 ? <FaThumbsUp size={30}/>  : <FaRegThumbsUp size={30} />}
+              </button>
+              <p className="text-black font-semibold">Likes: {voteState.upvotes}</p>
 
             </div>
           </div>
