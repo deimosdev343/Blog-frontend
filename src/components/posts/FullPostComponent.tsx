@@ -32,6 +32,23 @@ function isValidUrl(url: string): boolean {
 
 const FullPostComponent = ({id,username,title,content,avatarUrl,user_id}:PostCardProps) => {
 
+
+  const onDislike = () => {
+    if(voteState.user_votes == -1) {
+      setVoteState(voteState => ({...voteState, downvotes: voteState.downvotes -1, user_votes: 0}));
+    } else {
+      setVoteState(voteState => ({...voteState, downvotes: voteState.downvotes +1, user_votes: -1}));
+    }
+  }
+
+  const onLike = () => {
+    if(voteState.user_votes == 1) {
+      setVoteState(voteState => ({...voteState, upvotes: voteState.upvotes -1, user_votes: 0}));
+    } else {
+      setVoteState(voteState => ({...voteState, upvotes: voteState.upvotes +1, user_votes: 1}));
+    }
+  }
+
   const fetchVotes = async () => {
     try {
       const res = await axios.get('/api/vote', {
@@ -100,7 +117,9 @@ const FullPostComponent = ({id,username,title,content,avatarUrl,user_id}:PostCar
           <div className='w-full flex justify-between'>
             <div className={`flex flex-col items-center p-2 ${voteState.user_votes == -1 && "text-red-400"}`}>
               {voteState.user_votes == -1 ? <FaThumbsDown size={30}/>  : <FaRegThumbsDown size={30}/>}
-              <p className="text-black font-semibold">Dislikes: {voteState.downvotes}</p>
+              <button className="cursor-pointer">
+                <p className="text-black font-semibold">Dislikes: {voteState.downvotes}</p>
+              </button>
             </div>
             <div className={`flex flex-col items-center p-2 ${voteState.user_votes == 1 && "text-green-400"}`}>
               <button className="cursor-pointer">
