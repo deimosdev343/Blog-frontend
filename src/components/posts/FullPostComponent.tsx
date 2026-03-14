@@ -34,24 +34,21 @@ const FullPostComponent = ({id,username,title,content,avatarUrl,user_id}:PostCar
 
 
   const onDislike = () => {
-    if(voteState.user_votes == -1) {
-      setVoteState(voteState => ({...voteState, downvotes: voteState.downvotes -1, user_votes: 0}));
-    } else if (voteState.user_votes == 1) {
-      setVoteState(voteState => ({...voteState, upvotes: voteState.upvotes -1, downvotes: voteState.downvotes + 1, user_votes: -1}));
-    } 
-    else {
-      setVoteState(voteState => ({...voteState, downvotes: voteState.downvotes +1, user_votes: -1}));
-    }
+    setVoteState(vs => ({
+      ...vs,
+      upvotes: vs.user_votes == 1 ?  vs.upvotes -1 : vs.upvotes,
+      downvotes: vs.user_votes == -1 ? vs.downvotes -1 : vs.downvotes +1,
+      user_votes: vs.user_votes == -1 ? 0 : -1
+    }))
   }
 
   const onLike = () => {
-    if(voteState.user_votes == 1) {
-      setVoteState(voteState => ({...voteState, upvotes: voteState.upvotes -1, user_votes: 0}));
-    } else if (voteState.user_votes == -1) {
-      setVoteState(voteState => ({...voteState, upvotes: voteState.upvotes +1, downvotes: voteState.downvotes -1, user_votes: 1}));
-    } else {
-      setVoteState(voteState => ({...voteState, upvotes: voteState.upvotes +1, user_votes: 1}));
-    }
+    setVoteState(vs => ({
+      ...vs,
+      upvotes: vs.user_votes == 1 ?  vs.upvotes -1 : vs.upvotes + 1,
+      downvotes: vs.user_votes == -1 ? vs.downvotes -1 : vs.downvotes,
+      user_votes: vs.user_votes == 1 ? 0 : 1
+    }))
   }
 
   const fetchVotes = async () => {
