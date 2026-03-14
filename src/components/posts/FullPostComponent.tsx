@@ -1,11 +1,16 @@
 "use client";
+import { FaRegThumbsUp } from "react-icons/fa";
+import { FaThumbsUp } from "react-icons/fa";
+import { FaRegThumbsDown } from "react-icons/fa6";
+import { FaThumbsDown } from "react-icons/fa";
 
 import { Post } from '@/types/postTypes'
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import DefaultAvatar from '../../static/user.png';
 import axios from 'axios';
+import PostVoteRatio from './PostVoteRatio';
 
 type PostCardProps = {
   id: number
@@ -34,6 +39,11 @@ const FullPostComponent = ({id,username,title,content,avatarUrl,user_id}:PostCar
           post_id: id
         }
       });
+      setVoteState({
+        downvotes: res.data.downvotes || 0,
+        upvotes: res.data.upvotes || 0,
+        user_votes: res.data.user_votes || 0
+      });
       console.log(res);
     } catch (err) {
       console.log(err)
@@ -43,6 +53,12 @@ const FullPostComponent = ({id,username,title,content,avatarUrl,user_id}:PostCar
   useEffect(() => {
     fetchVotes();
   }, []);
+
+  const [voteState, setVoteState] = useState({
+    downvotes:0,
+    upvotes: 0,
+    user_votes:0
+  });
 
   return (
     <div 
@@ -72,14 +88,32 @@ const FullPostComponent = ({id,username,title,content,avatarUrl,user_id}:PostCar
         </div>
       </div>
       <div className="relative p-5">
-        <div className="h-screen overflow-scroll ">
+        <div className="max-h-full overflow-scroll ">
           <div
             dangerouslySetInnerHTML={{__html: content}}
           />
 
         </div>
-        <div className=" pointer-events-none absolute bottom-0 left-0 right-0 h-16" 
-        />
+      </div>
+      <div className='w-full flex items-center p-1 justify-end'>
+        <div className='w-[33%] flex flex-col '>
+          <div className='w-full flex justify-between'>
+            <div className={`flex flex-col items-center p-2 ${voteState.user_votes == -1 && "text-red-400"}`}>
+              {voteState.user_votes == -1 ? <FaThumbsDown size={30}/>  : <FaRegThumbsDown size={30}/>}
+              <p className="text-black font-semibold">Dislikes: {voteState.downvotes}</p>
+            </div>
+            <div className={`flex flex-col items-center p-2 ${voteState.user_votes == 1 && "text-red-400"}`}>
+              {voteState.user_votes == 1 ? <FaThumbsUp size={30}/>  : <FaRegThumbsUp size={30} />}
+              <p className="text-black font-semibold">Likes: {voteState.downvotes}</p>
+
+            </div>
+          </div>
+          <PostVoteRatio
+            upvotes={voteState.upvotes}
+            downvotes={voteState.downvotes}
+          />
+
+        </div>
       </div>
     </div>
   )
