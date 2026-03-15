@@ -33,22 +33,34 @@ function isValidUrl(url: string): boolean {
 const FullPostComponent = ({id,username,title,content,avatarUrl,user_id}:PostCardProps) => {
 
 
-  const onDislike = () => {
-    setVoteState(vs => ({
+  const onDislike = async () => {
+    try {
+
+      await axios.post('/api/vote', {vote: -1, post_id: id})
+      setVoteState(vs => ({
       ...vs,
       upvotes: vs.user_votes == 1 ?  vs.upvotes -1 : vs.upvotes,
       downvotes: vs.user_votes == -1 ? vs.downvotes -1 : vs.downvotes +1,
       user_votes: vs.user_votes == -1 ? 0 : -1
-    }))
+    }))  
+    } catch (err) {
+      console.log(err)
+    }
+    
   }
 
-  const onLike = () => {
-    setVoteState(vs => ({
-      ...vs,
-      upvotes: vs.user_votes == 1 ?  vs.upvotes -1 : vs.upvotes + 1,
-      downvotes: vs.user_votes == -1 ? vs.downvotes -1 : vs.downvotes,
-      user_votes: vs.user_votes == 1 ? 0 : 1
-    }))
+  const onLike = async () => {
+    try {
+      await axios.post('/api/vote', {vote: -1, post_id: id})
+      setVoteState(vs => ({
+        ...vs,
+        upvotes: vs.user_votes == 1 ?  vs.upvotes -1 : vs.upvotes + 1,
+        downvotes: vs.user_votes == -1 ? vs.downvotes -1 : vs.downvotes,
+        user_votes: vs.user_votes == 1 ? 0 : 1
+      }))  
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   const fetchVotes = async () => {
