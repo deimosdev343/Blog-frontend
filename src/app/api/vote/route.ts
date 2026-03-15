@@ -48,9 +48,17 @@ export const GET = async (req: NextRequest) => {
 export const POST = async (req: NextRequest) => {
   try {
     const body = await req.json();
+    const cks = await cookies();
+    const token =  cks.get("token")?.value;
+
     const backendRes = await axios.post(
       `${process.env.BACKEND_API}/vote`,
-       body
+       body,
+       {
+        headers:{
+          Authorization: `bearer ${token}`
+        }
+      }
     );
     return NextResponse.json(
       backendRes.data,
