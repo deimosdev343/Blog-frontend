@@ -51,7 +51,7 @@ const FullPostComponent = ({id,username,title,content,avatarUrl,user_id}:PostCar
 
   const onLike = async () => {
     try {
-      await axios.post('/api/vote', {vote: -1, post_id: id})
+      await axios.post('/api/vote', {vote: 1, post_id: id})
       setVoteState(vs => ({
         ...vs,
         upvotes: vs.user_votes == 1 ?  vs.upvotes -1 : vs.upvotes + 1,
