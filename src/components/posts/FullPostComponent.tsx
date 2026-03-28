@@ -11,6 +11,7 @@ import React, { useEffect, useState } from 'react'
 import DefaultAvatar from '../../static/user.png';
 import axios from 'axios';
 import PostVoteRatio from './PostVoteRatio';
+import CommentBox from "../comments/CommentBox";
 
 type PostCardProps = {
   id: number
@@ -155,6 +156,7 @@ const FullPostComponent = ({id,username,title,content,avatarUrl,user_id}:PostCar
           />
 
         </div>
+        <CommentBox post_id={id}/>
       </div>
     </div>
   )
