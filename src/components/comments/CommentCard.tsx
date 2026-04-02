@@ -45,7 +45,11 @@ const CommentCard = ({comment} :{comment: commentProp}) => {
           {comment.username}
         </p>
       </Link>
-      
+      <div className='w-full flex flex-col p-2'>
+        <p>
+          {comment.content}
+        </p>
+      </div>
     </article>
   )
 }
