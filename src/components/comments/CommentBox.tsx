@@ -19,12 +19,12 @@ const CommentBox = ({post_id} : CommentBoxProps) => {
           limit: 10
         }
       })
-      console.log(res);
-
+      setComments(res.data);
     } catch (err) {
       console.log(err)
     }
   }
+
   useEffect(() => {
     fetchComments();
   }, []);
