@@ -156,7 +156,11 @@ const FullPostComponent = ({id,username,title,content,avatarUrl,user_id}:PostCar
           />
 
         </div>
+      </div>
+      <div className="w-full flex flex-col  p-1">
+        <h2 className="font-bold text-xl border-b p-1 border-gray-400/50 mb-2">Comments</h2>
         <CommentBox post_id={id}/>
+
       </div>
     </div>
   )

@@ -2,6 +2,7 @@
 
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import CommentCard from './CommentCard'
 
 type CommentBoxProps = {
   post_id: number
@@ -19,7 +20,7 @@ const CommentBox = ({post_id} : CommentBoxProps) => {
           limit: 10
         }
       })
-      setComments(res.data);
+      setComments(res.data.comments);
     } catch (err) {
       console.log(err)
     }
@@ -31,7 +32,9 @@ const CommentBox = ({post_id} : CommentBoxProps) => {
   
   return (
     <div className='w-full flex flex-col'>
-      
+      {comments.map(comment => <CommentCard
+        comment={comment}
+      />)}
     </div>
   )
 }

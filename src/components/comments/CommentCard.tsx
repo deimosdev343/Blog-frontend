@@ -12,8 +12,13 @@ type commentProp = {
 }
 
 const CommentCard = ({comment} :{comment: commentProp}) => {
+
   return (
-    <div>CommentCard</div>
+    <article className=" group relative w-full bg-white/80 backdrop-blur-sm rounded-lg
+      shadow-md  transition-all duration-300 p-6 flex flex-col gap-3 border border-gray-200"
+    >
+      Test
+    </article>
   )
 }
 
