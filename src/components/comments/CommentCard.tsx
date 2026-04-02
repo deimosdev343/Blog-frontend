@@ -2,6 +2,8 @@ import Link from 'next/link'
 import React from 'react'
 import DefaultAvatar from '../../static/user.png';
 import Image from 'next/image';
+import dayjs from 'dayjs';
+
 type commentProp = {
   author_id: number,
   content: string,
@@ -45,11 +47,13 @@ const CommentCard = ({comment} :{comment: commentProp}) => {
           {comment.username}
         </p>
       </Link>
-      <div className='w-full flex flex-col p-2'>
+      <div className='w-full flex flex-col p-2 gap-2'>
         <p>
           {comment.content}
         </p>
+        <p className='text-xs text-gray-400'>{dayjs(comment.created_at).format("DD/MM/YYYY HH:mm")}</p>
       </div>
+      
     </article>
   )
 }
