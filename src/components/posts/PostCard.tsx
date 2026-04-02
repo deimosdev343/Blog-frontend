@@ -41,8 +41,10 @@ const PostCard = ({
       shadow-md hover:shadow-2xl transition-all duration-300 p-6 flex flex-col gap-3
       border border-gray-200"
     >
-      <Link href={`/profilePage/${user_id}`} 
-        className="flex items-center gap-3 w-full">
+      <Link 
+        href={`/profilePage/${user_id}`} 
+        className="flex items-center gap-3 w-full"
+      >
 
         <Image
           src={(avatarUrl && isValidUrl(avatarUrl)) ? avatarUrl : DefaultAvatar}
