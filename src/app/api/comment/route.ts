@@ -5,6 +5,36 @@ type ApiResponseError = {
   msg: string
 }
 
+export const POST = async (req: NextRequest) => {
+  try {
+    const cks = await cookies();
+    const token =  cks.get("token")?.value;
+    const body = await req.json();
+    const backendRes = await axios.post(
+      `${process.env.BACKEND_API}/comment`,
+      body,
+      {
+        headers:{
+          Authorization: `bearer ${token}`
+        }
+      }
+    );
+    return NextResponse.json(
+      backendRes.data,
+      {status: 200}
+    );
+  } catch (err) {
+    console.log(err);
+    const axErr = err as AxiosError<ApiResponseError>;
+    console.log(axErr.response);
+    return NextResponse.json(
+      {msg:axErr.response?.data?.msg || "Internal Server Error"}, 
+      {status:axErr.response?.status || 500}
+    );
+  }
+}
+
+
 export const GET = async (req: NextRequest) => {
   try {
     const {searchParams} = new URL(req.url);
