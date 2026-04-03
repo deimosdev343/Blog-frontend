@@ -53,7 +53,7 @@ const CommentBox = ({post_id} : CommentBoxProps) => {
         <p>Add Comment</p>
         <FaPlusCircle/>
       </button>
-      {comments.map(comment => <CommentCard
+      {comments?.map(comment => <CommentCard
         comment={comment}
       />)}
     </div>
