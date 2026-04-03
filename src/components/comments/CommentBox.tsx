@@ -23,6 +23,7 @@ const CommentBox = ({post_id} : CommentBoxProps) => {
           limit: 10
         }
       })
+      console.log(res.data);
       setComments(res.data.comments);
     } catch (err) {
       console.log(err)
