@@ -4,6 +4,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import CommentCard from './CommentCard'
 import { FaPlus, FaPlusCircle } from 'react-icons/fa'
+import CreateCommentModal from './modals/CreateCommentModal'
 
 type CommentBoxProps = {
   post_id: number
@@ -34,10 +35,20 @@ const CommentBox = ({post_id} : CommentBoxProps) => {
   
   return (
     <div className='w-full flex flex-col gap-3 p-1'>
+      <CreateCommentModal
+        post_id={post_id}
+        isOpen={addCommentModalShow}
+        onClose={() => {
+          setAddCommentModalShow(false);
+        }}
+        onCommentCreated={() => {
+          fetchComments();
+        }}
+      />
       <button 
         className='w-1/6  border border-slate-400/50 font-semibold text-md flex justify-center  gap-2 items-center p-2 
           shadow-md rounded-lg hover:bg-slate-100/50 transition-all duration-300'
-        
+        onClick={() => {setAddCommentModalShow(true)}}
       >
         <p>Add Comment</p>
         <FaPlusCircle/>
