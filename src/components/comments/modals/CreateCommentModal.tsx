@@ -66,7 +66,7 @@ const CreateCommentModal = ({
         <h2 className="text-xl font-bold text-gray-800 border-b pb-2">Add a Comment</h2>
 
         <textarea
-          className="w-full border rounded-lg p-3 text-gray-700 resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="w-full border rounded-lg p-3 text-gray-700 resize-none focus:outline-none focus:ring-2 focus:ring-slate-700"
           rows={4}
           placeholder="Write your comment..."
           value={content}

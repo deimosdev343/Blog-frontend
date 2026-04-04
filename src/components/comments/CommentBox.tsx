@@ -9,21 +9,30 @@ import CreateCommentModal from './modals/CreateCommentModal'
 type CommentBoxProps = {
   post_id: number
 }
+const LIMIT = 5;
 
 const CommentBox = ({post_id} : CommentBoxProps) => {
   const [comments, setComments] = useState([]);
   const [addCommentModalShow, setAddCommentModalShow] = useState(false);
+  const [fetchParams, setFetchParams] = useState({
+    skip: 0,
+    hasMore: true
+  });
 
   const fetchComments = async () => {
     try {
+
       const res = await axios.get("/api/comment", {
         params:{
           post_id,
           skip: 0,
-          limit: 10
+          limit: LIMIT
         }
-      })
-      console.log(res.data);
+      });
+      if(res.data?.comments?.length < LIMIT) {
+        setFetchParams(fp => ({...fp, hasMore: false}));
+      }
+
       setComments(res.data.comments);
     } catch (err) {
       console.log(err)
@@ -35,7 +44,7 @@ const CommentBox = ({post_id} : CommentBoxProps) => {
   }, []);
   
   return (
-    <div className='w-full flex flex-col gap-3 p-1'>
+    <div className='w-full flex flex-col gap-3 p-1 h-full' id="scroll">
       <CreateCommentModal
         post_id={post_id}
         isOpen={addCommentModalShow}
@@ -54,9 +63,13 @@ const CommentBox = ({post_id} : CommentBoxProps) => {
         <p>Add Comment</p>
         <FaPlusCircle/>
       </button>
-      {comments?.map(comment => <CommentCard
-        comment={comment}
-      />)}
+   
+      <div className='flex flex-col items-center w-full gap-2 p-1'>
+        {comments?.map(comment => <CommentCard
+          comment={comment}
+        />)}
+
+      </div>
     </div>
   )
 }

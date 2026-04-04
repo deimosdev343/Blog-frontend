@@ -25,15 +25,15 @@ const AllPostsBox = () => {
     const newPosts: Array<Post> = res.data;
     setPosts(prev => {
       let filterLookup: {[key: number]: number} = {};
-      if(prev.length > 10) {
-        prev.slice(prev.length - 11, prev.length -1).forEach(p => {
+      
+      prev.length > 10 
+      ? prev.slice(prev.length - 11, prev.length -1).forEach(p => {
           filterLookup[p.id] = p.id
         })
-      } else {
-        prev.forEach(p => {
+      : prev.forEach(p => {
           filterLookup[p.id] = p.id
         })
-      }
+      
       const filtered = newPosts.filter(p => !filterLookup[p.id]);
       return [...prev, ...filtered]
     });
