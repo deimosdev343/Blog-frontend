@@ -22,8 +22,26 @@ const CreateCommentModal = ({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSubmit = () => {
-
+  const handleSubmit = async () => {
+    if (!content.trim()) {
+      setError('Comment cannot be empty.');
+      return setTimeout(() => {
+        setError("");
+      }, 3000);
+    }
+    
+    try {
+      setLoading(true);
+      await axios.post('/api/comment', {post_id, content});
+      setContent("");
+      onCommentCreated();
+      onClose();
+    } catch (err) {
+      setError("Message failed to send");
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
   }
   if (!isOpen) return null;
 
