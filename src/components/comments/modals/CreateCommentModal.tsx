@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 import axios from 'axios';
+import { FaPlusCircle } from 'react-icons/fa';
 
 type CreateCommentModalProps = {
   post_id: number;
@@ -22,14 +23,22 @@ const CreateCommentModal = ({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  const clearErrorTimeOut = () => {
+    setTimeout(() => {
+        setError("");
+      }, 3000);
+  }
   const handleSubmit = async () => {
     if (!content.trim()) {
       setError('Comment cannot be empty.');
-      return setTimeout(() => {
-        setError("");
-      }, 3000);
+      return clearErrorTimeOut();
     }
     
+    if(content.length > 499) {
+      setError("comment must be less than 500 characters");
+      return clearErrorTimeOut();
+    }
+
     try {
       setLoading(true);
       await axios.post('/api/comment', {post_id, content});
@@ -73,11 +82,16 @@ const CreateCommentModal = ({
             Cancel
           </button>
           <button
-            className="px-4 py-2 rounded-lg bg-blue-500 text-white font-semibold hover:bg-blue-600 transition disabled:opacity-50"
+            className="px-4 py-2 rounded-lg  text-black border 
+              border-slate-200 shadow-md font-semibold hover:bg-slate-100/50 transition disabled:opacity-50
+              flex items-center gap-2"
             onClick={handleSubmit}
             disabled={loading}
           >
-            {loading ? 'Posting...' : 'Post Comment'}
+            {loading ? <p>Posting...</p> : <>
+              <p>Post Comment</p>
+              <FaPlusCircle/>
+            </>}
           </button>
         </div>
       </div>
