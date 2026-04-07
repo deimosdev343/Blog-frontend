@@ -9,7 +9,7 @@ import CreateCommentModal from './modals/CreateCommentModal'
 type CommentBoxProps = {
   post_id: number
 }
-const LIMIT = 5;
+const LIMIT = 10;
 
 const CommentBox = ({post_id} : CommentBoxProps) => {
   const [comments, setComments] = useState([]);
@@ -18,29 +18,33 @@ const CommentBox = ({post_id} : CommentBoxProps) => {
     skip: 0,
     hasMore: true
   });
+  console.log(comments)
 
-  const fetchComments = async () => {
+  const fetchComments = async (skip: number) => {
     try {
 
       const res = await axios.get("/api/comment", {
         params:{
           post_id,
-          skip: 0,
+          skip: skip,
           limit: LIMIT
         }
       });
       if(res.data?.comments?.length < LIMIT) {
         setFetchParams(fp => ({...fp, hasMore: false}));
       }
-
       setComments(res.data.comments);
     } catch (err) {
       console.log(err)
     }
   }
 
+  const loadMore = () => {
+    fetchComments(fetchParams.skip + LIMIT);
+    setFetchParams(fp => ({...fp, skip: fp.skip + LIMIT}));
+  }
   useEffect(() => {
-    fetchComments();
+    fetchComments(fetchParams.skip);
   }, []);
   
   return (
@@ -52,7 +56,7 @@ const CommentBox = ({post_id} : CommentBoxProps) => {
           setAddCommentModalShow(false);
         }}
         onCommentCreated={() => {
-          fetchComments();
+          fetchComments(fetchParams.skip);
         }}
       />
       <button 
