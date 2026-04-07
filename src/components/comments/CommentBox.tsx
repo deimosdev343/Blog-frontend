@@ -65,7 +65,7 @@ const CommentBox = ({post_id} : CommentBoxProps) => {
         onClose={() => {
           setAddCommentModalShow(false);
         }}
-        onCommentCreated={() => {
+        onCommentCreated={async () => {
           fetchComments(fetchParams.skip);
         }}
       />
@@ -82,7 +82,14 @@ const CommentBox = ({post_id} : CommentBoxProps) => {
         {comments?.map(comment => <CommentCard
           comment={comment}
         />)}
-
+        <button
+          className='w-1/6  border border-slate-400/50 font-semibold text-md flex justify-center  gap-2 items-center p-2 
+          shadow-md rounded-lg hover:bg-slate-100/50 transition-all duration-300 disabled:opacity-35'
+          disabled={!fetchParams.hasMore}
+          onClick={loadMore}
+        >
+          Load More
+        </button>
       </div>
     </div>
   )
