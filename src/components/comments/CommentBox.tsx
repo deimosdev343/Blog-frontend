@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react'
 import CommentCard from './CommentCard'
 import { FaPlus, FaPlusCircle } from 'react-icons/fa'
 import CreateCommentModal from './modals/CreateCommentModal'
+import { Comment } from '@/types/commenyTypes'
 
 type CommentBoxProps = {
   post_id: number
@@ -12,7 +13,7 @@ type CommentBoxProps = {
 const LIMIT = 10;
 
 const CommentBox = ({post_id} : CommentBoxProps) => {
-  const [comments, setComments] = useState([]);
+  const [comments, setComments] = useState<Comment[]>([]);
   const [addCommentModalShow, setAddCommentModalShow] = useState(false);
   const [fetchParams, setFetchParams] = useState({
     skip: 0,
@@ -33,7 +34,16 @@ const CommentBox = ({post_id} : CommentBoxProps) => {
       if(res.data?.comments?.length < LIMIT) {
         setFetchParams(fp => ({...fp, hasMore: false}));
       }
-      setComments(res.data.comments);
+
+      const newComments: Comment[] = res.data.comments;
+      setComments((prev: Comment[]) => {
+        let filterLookup: {[key: number]: number} = {};
+        prev.slice(prev.length - 11, prev.length -1).forEach(com => {
+          filterLookup[com.id] = com.id
+        });
+        const filtered = newComments.filter(com => !filterLookup[com.id]);
+        return [...prev, ...filtered];
+      });
     } catch (err) {
       console.log(err)
     }

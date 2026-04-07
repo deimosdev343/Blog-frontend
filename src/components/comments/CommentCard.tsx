@@ -3,17 +3,8 @@ import React from 'react'
 import DefaultAvatar from '../../static/user.png';
 import Image from 'next/image';
 import dayjs from 'dayjs';
+import { Comment } from '@/types/commenyTypes';
 
-type commentProp = {
-  author_id: number,
-  content: string,
-  created_at: string,
-  id: number,
-  post_id: number,
-  updated_at: string,
-  user_avatar: string | null,
-  username: string
-}
 
 function isValidUrl(url: string): boolean {
   try {
@@ -24,7 +15,7 @@ function isValidUrl(url: string): boolean {
   }
 }
 
-const CommentCard = ({comment} :{comment: commentProp}) => {
+const CommentCard = ({comment} :{comment: Comment}) => {
 
   return (
     <article className=" group relative w-full bg-white/80 backdrop-blur-sm rounded-lg
