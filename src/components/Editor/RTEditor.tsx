@@ -1,5 +1,5 @@
 "use client";
-
+import {OrbitProgress} from 'react-loading-indicators';
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Link from "@tiptap/extension-link";
@@ -9,6 +9,8 @@ import { BiSave } from "react-icons/bi";
 import TextAlign from '@tiptap/extension-text-align';
 import {FontSize, TextStyle} from "@tiptap/extension-text-style";
 import { useState } from "react";
+import { IoSparkles } from "react-icons/io5";
+import axios from "axios";
 
 function ToolbarButton({
   onClick,
@@ -34,8 +36,23 @@ function ToolbarButton({
 }
 
 const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise<void>}) => {
+
+  const getSuggestions = async () => {
+    try {
+      setSuggestionState({loading: true, suggestionText: ""});
+      const text = editor?.getText();
+      const res = await axios.post('/api/ai/suggestions', {post: text});
+      setSuggestionState({loading: false, suggestionText: res.data});
+    } catch (err) {
+      console.log(`you can't change current reality and the zone kick you out`)
+    }
+  }
   const [title, setTitle] = useState("");
   const [fontSize, setFontSize] = useState(24);
+  const [suggestionState, setSuggestionState] = useState({
+    loading: false,
+    suggestionText: ""
+  });
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -174,6 +191,28 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
       </div>
       </div>
       <EditorContent editor={editor} />
+      <div className="w-full flex flex-col items-start p-1 gap-2">
+        <button
+          className="flex items-center gap-2 border border-slate-400/40 text-[#2f54a5] 
+            hover:bg-slate-100  font-semibold px-6 py-3 mt-4 rounded-xl cursor-pointer
+            transition-all duration-500 shadow-md hover:shadow-lg"
+          onClick={getSuggestions}
+        >
+          <p>Get Suggestions</p>
+          <IoSparkles />
+        </button>
+        {suggestionState.loading && <div className="flex flex-col w-full items-center gap-5 justify-between shadow-md p-5 border border-slate-400/20 mb-2 rounded-xl bg-white">
+          <OrbitProgress color="#666" size="medium" text="" textColor="" />          
+          
+        </div>}
+        {!suggestionState.loading && suggestionState.suggestionText && 
+          <div className="flex flex-col w-full items-center gap-5 justify-between shadow-md p-5 border border-slate-400/20 mb-2 rounded-xl bg-white">
+            <p>
+              {suggestionState.suggestionText}
+            </p>
+          </div>
+        }
+      </div>
       <div className="w-full flex items-center p-2 mt-6">
         <button
           className="flex items-center gap-2 border border-slate-400/40 text-[#2f54a5] 
