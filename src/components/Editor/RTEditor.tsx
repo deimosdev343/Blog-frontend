@@ -39,19 +39,36 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
 
   const getSuggestions = async () => {
     try {
-      setSuggestionState({loading: true, suggestionText: ""});
+      setSuggestionState({
+        loading: true, 
+        
+        suggestionList: [],
+        error: ""
+      });
       const text = editor?.getText();
-      const res = await axios.post('/api/ai/suggestions', {post: text});
-      setSuggestionState({loading: false, suggestionText: res.data});
+      
+      if(text != undefined && text.trim().length < 1) {
+        return setSuggestionState({
+          loading:false,
+          suggestionList: [],
+          
+          error: "Enter Text to get suggestions"
+        })
+      }
+      const res = await axios.post('/api/ai/suggestions/v2', {post: text});
+      console.log(res);
+      // setSuggestionState({loading: false, suggestionText: res.data});
     } catch (err) {
-      console.log(`you can't change current reality and the zone kick you out`)
+      setSuggestionState({loading: false, suggestionList:[],  error: "Try Again Later"});
+
     }
   }
   const [title, setTitle] = useState("");
   const [fontSize, setFontSize] = useState(24);
   const [suggestionState, setSuggestionState] = useState({
     loading: false,
-    suggestionText: ""
+    suggestionList: [],
+    error:""
   });
   const editor = useEditor({
     extensions: [
@@ -205,10 +222,16 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
           <OrbitProgress color="#666" size="medium" text="" textColor="" />          
           
         </div>}
-        {!suggestionState.loading && suggestionState.suggestionText && 
+        {!suggestionState.loading && suggestionState.suggestionList?.length > 1 && 
           <div className="flex flex-col w-full items-center gap-5 justify-between shadow-md p-5 border border-slate-400/20 mb-2 rounded-xl bg-white">
+            
+          </div>
+        }
+         {!suggestionState.loading && suggestionState.error && 
+          <div className="flex flex-col w-full items-center gap-5 justify-between shadow-md p-5 border
+             border-slate-400/20 mb-2 rounded-xl bg-white">
             <p>
-              {suggestionState.suggestionText}
+              {suggestionState.error}
             </p>
           </div>
         }
