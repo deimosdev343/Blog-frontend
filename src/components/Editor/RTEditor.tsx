@@ -57,7 +57,7 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
       }
       const res = await axios.post('/api/ai/suggestions/v2', {post: text});
       console.log(res);
-      // setSuggestionState({loading: false, suggestionText: res.data});
+      setSuggestionState({loading: false, suggestionList: res.data.suggestions, error:""});
     } catch (err) {
       setSuggestionState({loading: false, suggestionList:[],  error: "Try Again Later"});
 
@@ -224,7 +224,10 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
         </div>}
         {!suggestionState.loading && suggestionState.suggestionList?.length > 1 && 
           <div className="flex flex-col w-full items-center gap-5 justify-between shadow-md p-5 border border-slate-400/20 mb-2 rounded-xl bg-white">
-            
+            {suggestionState.suggestionList.map(st => <div className='flex items-center justify-between p-2 w-full border 
+              border-slate-500/20 mb-1 rounded-lg shadow-md'>
+              <p className='font-semibold text-md'>{st}</p>
+            </div>)}
           </div>
         }
          {!suggestionState.loading && suggestionState.error && 
