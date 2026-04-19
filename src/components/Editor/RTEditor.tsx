@@ -9,7 +9,7 @@ import { BiSave } from "react-icons/bi";
 import TextAlign from '@tiptap/extension-text-align';
 import {FontSize, TextStyle} from "@tiptap/extension-text-style";
 import { useState } from "react";
-import { IoSparkles } from "react-icons/io5";
+import { IoExpand, IoSparkles, IoSparklesSharp } from "react-icons/io5";
 import axios from "axios";
 
 function ToolbarButton({
@@ -37,7 +37,12 @@ function ToolbarButton({
 
 const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise<void>}) => {
 
-  const getSuggestions = async () => {
+
+  const getSuggestionFunc = () => {
+    const text = editor?.getText();
+    getSuggestions(text)
+  }
+  const getSuggestions = async (text:string | undefined) => {
     try {
       setSuggestionState({
         loading: true, 
@@ -45,7 +50,6 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
         suggestionList: [],
         error: ""
       });
-      const text = editor?.getText();
       
       if(text != undefined && text.trim().length < 1) {
         return setSuggestionState({
@@ -213,7 +217,7 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
           className="flex items-center gap-2 border border-slate-400/40 text-[#2f54a5] 
             hover:bg-slate-100  font-semibold px-6 py-3 mt-4 rounded-xl cursor-pointer
             transition-all duration-500 shadow-md hover:shadow-lg"
-          onClick={getSuggestions}
+          onClick={getSuggestionFunc}
         >
           <p>Get Suggestions</p>
           <IoSparkles />
@@ -227,6 +231,14 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
             {suggestionState.suggestionList.map(st => <div className='flex items-center justify-between p-2 w-full border 
               border-slate-500/20 mb-1 rounded-lg shadow-md'>
               <p className='font-semibold text-md'>{st}</p>
+              <button 
+                className='p-1 shadow-md border rounded-xl border-[#2f54a5] text-[#2f54a5] cursor-pointer'
+                onClick={() => {
+                  getSuggestions(st)
+                }}
+              >
+                <IoExpand  size={25}/>
+              </button>
             </div>)}
           </div>
         }
