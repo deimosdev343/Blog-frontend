@@ -9,7 +9,7 @@ import { BiSave } from "react-icons/bi";
 import TextAlign from '@tiptap/extension-text-align';
 import {FontSize, TextStyle} from "@tiptap/extension-text-style";
 import { useState } from "react";
-import { IoExpand, IoSparkles, IoSparklesSharp } from "react-icons/io5";
+import { IoEllipsisHorizontal, IoExpand, IoRefresh, IoSparkles, IoSparklesSharp } from "react-icons/io5";
 import axios from "axios";
 
 function ToolbarButton({
@@ -67,6 +67,29 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
 
     }
   }
+  const getExpantion = async (text:string | undefined, suggestion: string | undefined) => {
+    try {
+      setExpantionState({
+        loading: true, 
+        error: "",
+        expandedText:""
+      });
+      
+      if(text != undefined && text.trim().length < 1) {
+        return setExpantionState({
+          loading:false,
+          expandedText:"",
+          error: "Enter Text to get suggestions"
+        })
+      }
+
+      const res = await axios.post('/api/ai/expand', {post: text, suggestion: suggestion});
+      setExpantionState({loading: false, expandedText: res.data.expanded_text, error:""});
+    } catch (err) {
+      setExpantionState({loading: false, expandedText:"",  error: "Try Again Later"});
+    }
+  }
+
   const [title, setTitle] = useState("");
   const [fontSize, setFontSize] = useState(24);
   const [suggestionState, setSuggestionState] = useState({
@@ -74,6 +97,12 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
     suggestionList: [],
     error:""
   });
+  const [expantionState, setExpantionState] = useState({
+    loading: false,
+    expandedText:"",
+    error:""
+  });
+
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -223,32 +252,58 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
           <IoSparkles />
         </button>
         {suggestionState.loading && <div className="flex flex-col w-full items-center gap-5 justify-between shadow-md p-5 border border-slate-400/20 mb-2 rounded-xl bg-white">
-          <OrbitProgress color="#666" size="medium" text="" textColor="" />          
-          
+          <OrbitProgress color="#666" size="medium" text="" textColor="" />  
         </div>}
         {!suggestionState.loading && suggestionState.suggestionList?.length > 1 && 
           <div className="flex flex-col w-full items-center gap-5 justify-between shadow-md p-5 border border-slate-400/20 mb-2 rounded-xl bg-white">
             {suggestionState.suggestionList.map(st => <div className='flex items-center justify-between p-2 w-full border 
               border-slate-500/20 mb-1 rounded-lg shadow-md'>
               <p className='font-semibold text-md'>{st}</p>
-              <button 
-                className='p-1 shadow-md border rounded-xl border-[#2f54a5] text-[#2f54a5] cursor-pointer'
-                onClick={() => {
-                  getSuggestions(st)
-                }}
-              >
-                <IoExpand  size={25}/>
-              </button>
-            </div>)}
-            
-          
+              <div className='flex p-1 gap-2'>
+                <button 
+                  className='p-1 shadow-md border rounded-xl border-[#888] text-[#2f54a5] cursor-pointer'
+                  onClick={() => {
+                    const text = editor?.getText()
+                    getExpantion(text,st);
+                  }}
+                >
+                  <IoEllipsisHorizontal  size={25}/>
+                </button>
+                <button 
+                  className='p-1 shadow-md border rounded-xl border-[#888] text-[#2f54a5] cursor-pointer'
+                  onClick={() => {
+                    getSuggestions(st);
+                  }}
+                >
+                  <IoRefresh  size={25}/>
+                </button>
+
+              </div>
+            </div>)} 
           </div>
         }
-         {!suggestionState.loading && suggestionState.error && 
+        {!suggestionState.loading && suggestionState.error && 
           <div className="flex flex-col w-full items-center gap-5 justify-between shadow-md p-5 border
-             border-slate-400/20 mb-2 rounded-xl bg-white">
+              border-slate-400/20 mb-2 rounded-xl bg-white">
             <p>
               {suggestionState.error}
+            </p>
+          </div>
+        }
+
+        {expantionState.loading && <div className="flex flex-col w-full items-center gap-5 justify-between shadow-md p-5 border border-slate-400/20 mb-2 rounded-xl bg-white">
+          <OrbitProgress color="#666" size="medium" text="" textColor="" />          
+        </div>}
+        {!expantionState.loading && expantionState.expandedText != "" && <div 
+          className='flex items-center justify-between p-2 w-full border border-slate-500/20 mb-1 rounded-lg shadow-md'
+        >
+          <p className='font-semibold text-md'>{expantionState.expandedText}</p>
+        </div>}
+        {!expantionState.loading && expantionState.error && 
+          <div className="flex flex-col w-full items-center gap-5 justify-between shadow-md p-5 border
+              border-slate-400/20 mb-2 rounded-xl bg-white">
+            <p>
+              {expantionState.error}
             </p>
           </div>
         }
