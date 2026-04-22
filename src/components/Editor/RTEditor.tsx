@@ -240,6 +240,8 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
                 <IoExpand  size={25}/>
               </button>
             </div>)}
+            
+          
           </div>
         }
          {!suggestionState.loading && suggestionState.error && 
