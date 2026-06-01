@@ -29,6 +29,7 @@ const page = async ({params}: PageProps) => {
   return (
     <div className="w-full h-full flex flex-col">
       <FullPostComponent 
+        
         title={post.title}
         content={post.content}
         username={post.username}

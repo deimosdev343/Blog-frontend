@@ -1,13 +1,17 @@
-import '@testing-library/jest-dom'
-import { render, screen } from '@testing-library/react'
-import Page from '../../page'
- 
-describe('Page', () => {
-  it('renders a heading', () => {
-    render(<Page />)
- 
-    const heading = screen.getByRole('heading', { level: 1 })
- 
-    expect(heading).toBeInTheDocument()
-  })
-})
+import { render, screen } from '@testing-library/react';
+import Page from './page';
+import {describe, expect, it, jest, test} from '@jest/globals';
+
+jest.mock('axios');
+
+test('renders page', async () => {
+  const page = await Page({
+    params: {
+      slug: 'test-post',
+    },
+  });
+
+  render(page);
+
+  expect(screen.getByTestId('blog-content')).toBeInTheDocument();
+});
