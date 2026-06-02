@@ -4,10 +4,10 @@ import {describe, expect, it, jest, test} from '@jest/globals';
 
 jest.mock('axios');
 
-test('renders page', async () => {
+it('renders page', async () => {
   const page = await Page({
     params: {
-      slug: '12',
+      slug: "12",
     },
   });
 
