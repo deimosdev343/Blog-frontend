@@ -7,6 +7,22 @@ import axios from 'axios';
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
+it('renders empty page', async () => {
+  
+  mockedAxios.get.mockResolvedValue({
+    data:null
+  });
+  const page = await Page({
+    params: {
+      slug: "EmptyPageSlug",
+    },
+
+  });
+
+  render(page);
+  expect(screen.getByTestId('notFound')).toBeInTheDocument();
+})
+
 it('renders page', async () => {
   mockedAxios.get.mockResolvedValue({
     data: {
