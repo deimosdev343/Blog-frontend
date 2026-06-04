@@ -39,3 +39,27 @@ it('renders page', async () => {
   render(page);
   expect(screen.getByTestId('blog-content')).toBeInTheDocument();
 });
+
+describe('getPost', () => {
+  it('calls axios with the correct URL', async () => {
+    process.env.BACKEND_API = 'http://localhost:8000';
+    
+    mockedAxios.get.mockResolvedValueOnce({
+      data: {
+        id: 1,
+        title: 'Test Post',
+        content: '<p>Hello</p>',
+        username: 'john',
+        author_id: 42,
+        user_avatar: 'https://example.com/avatar.png'
+      }
+    });
+    const page = await Page({
+      params: {
+        slug: "12",
+      },
+    });
+    
+    expect(mockedAxios.get).toHaveBeenCalledWith('http://localhost:8000/posts/12');
+  });
+})
