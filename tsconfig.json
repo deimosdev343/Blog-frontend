@@ -22,7 +22,7 @@
       "@/*": ["./src/*"]
     },
     "types": [
-      "jest", "@testing-library/jest-dom"
+      "jest", "@testing-library/jest-dom", "node"
     ]
   },
   "include": [

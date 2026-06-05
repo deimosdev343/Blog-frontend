@@ -3,9 +3,28 @@ import Page from './page';
 import {describe, expect, it, test} from '@jest/globals';
 import axios from 'axios';
 
-
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
+
+jest.mock('@/components/comments/CommentBox', () => ({
+  __esModule: true,
+  default: ({post_id} : {post_id: number}) => <div data-testid="comment-box" data-post-id={post_id}/>
+}))
+
+
+jest.mock('@/components/posts/PostVoteRatio', () => ({
+  __esModule: true,
+  default: () => <div data-testid="vote-ratio" />
+}));
+
+const defaultProps = {
+  id: 1,
+  title: 'My Test Post',
+  content: '<p>Hello World</p>',
+  username: 'johndoe',
+  avatarUrl: 'https://example.com/avatar.png',
+  user_id: 42
+};
 
 it('renders empty page', async () => {
   
@@ -62,4 +81,4 @@ describe('getPost', () => {
     
     expect(mockedAxios.get).toHaveBeenCalledWith('http://localhost:8000/posts/12');
   });
-})
+});
