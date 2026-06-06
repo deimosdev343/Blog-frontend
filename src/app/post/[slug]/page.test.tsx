@@ -43,4 +43,9 @@ describe('FullPostComponent rendering', () => {
     render(<FullPostComponent {...defaultProps} />);
     expect(screen.getByText("johndoe")).toBeInTheDocument();
   })
+  it('renders post HTML content', async () => {
+    render(<FullPostComponent {...defaultProps} />);
+    const contentDiv = screen.getByText("Hello World");
+    expect(contentDiv).toContainHTML('<p>Hello World</p>');
+  });
 })

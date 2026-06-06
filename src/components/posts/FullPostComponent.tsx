@@ -120,7 +120,7 @@ const FullPostComponent = ({id,username,title,content,avatarUrl,user_id}:PostCar
         </div>
       </div>
       <div className="relative p-5">
-        <div className="max-h-full overflow-scroll " data-testid="blog-content">
+        <div className="max-h-full overflow-scroll">
           <div
             dangerouslySetInnerHTML={{__html: content}}
           />
