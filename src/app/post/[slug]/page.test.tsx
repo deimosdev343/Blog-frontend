@@ -57,6 +57,6 @@ describe('FullPostComponent rendering', () => {
   it('renders the default avatar when avatarUrl is invalid', async () => {
     render(<FullPostComponent {...defaultProps} avatarUrl="not-a-valid-url" />);
     const avatar = screen.getByAltText('avatar');
-    expect(avatar).toBeInTheDocument();
+    expect(avatar).toHaveAttribute('src', expect.stringContaining('/_next/image?url=%2Fimg.jpg&w=96&q=75'));
   });
 })
