@@ -48,4 +48,15 @@ describe('FullPostComponent rendering', () => {
     const contentDiv = screen.getByText("Hello World");
     expect(contentDiv).toContainHTML('<p>Hello World</p>');
   });
+  it('renders the avatar with the provided URL', async () => {
+    render(<FullPostComponent {...defaultProps} />);
+
+    const avatar = screen.getByAltText('avatar');
+    expect(avatar).toHaveAttribute('src', expect.stringContaining('example.com'));
+  });
+  it('renders the default avatar when avatarUrl is invalid', async () => {
+    render(<FullPostComponent {...defaultProps} avatarUrl="not-a-valid-url" />);
+    const avatar = screen.getByAltText('avatar');
+    expect(avatar).toBeInTheDocument();
+  });
 })
