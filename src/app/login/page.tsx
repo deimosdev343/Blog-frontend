@@ -2,15 +2,12 @@
 
 import { loginUser, useAppDispatch } from '@/lib/store';
 import axios, { AxiosError } from 'axios';
-import { NextApiResponse } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {useForm} from 'react-hook-form';
 import { BiLogIn } from 'react-icons/bi';
-import { FaFlorinSign } from 'react-icons/fa6';
-
 
 type LoginForm = {
   username: string,
