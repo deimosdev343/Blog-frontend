@@ -133,6 +133,10 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
 
   if(!editor) return null;
 
+  const addSuggestionToText = (st: string) => {
+    editor.chain().focus().insertContentAt(editor.state.doc.content.size,  " " + st).run()
+  }
+  
   return (
     <div className="w-full h-screen px-4 py-6 bg-gradient-to-b from-indigo-50/50 to-white">
       <input
