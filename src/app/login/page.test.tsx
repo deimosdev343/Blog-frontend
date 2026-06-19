@@ -31,3 +31,43 @@ jest.mock('next/link', () => {
   return MockLink;
 });
 
+//Helpers
+const renderPage = () => render(<LoginPage />);
+
+const fillAndSubmit = async (username: string, password: string) => {
+  await userEvent.type(screen.getByRole('textbox', { name: /username/i }), username);
+  await userEvent.type(screen.getByLabelText(/password/i), password);
+  await userEvent.click(screen.getByRole('button', { name: /login/i }));
+};
+
+//Tests
+describe('LoginPage', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    jest.useFakeTimers();
+  });
+
+  afterEach(() => {
+    jest.runOnlyPendingTimers();
+    jest.useRealTimers();
+  });
+
+  it('renders the username input', () => {
+    renderPage();
+    expect(screen.getByRole('textbox', { name: /username/i })).toBeInTheDocument();
+  });
+  it('renders the password input', () => {
+    renderPage();
+    expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
+  });
+  it('renders the login button', () => {
+    renderPage();
+    expect(screen.getByRole('button', { name: /login/i })).toBeInTheDocument();
+  });
+  it('renders a link to the register page', () => {
+    renderPage();
+    const link = screen.getByRole('link', { name: /register/i });
+    expect(link).toBeInTheDocument();
+    expect(link).toHaveAttribute('href', '/register');
+  });
+})
