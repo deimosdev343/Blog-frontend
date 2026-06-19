@@ -2,15 +2,12 @@
 
 import { loginUser, useAppDispatch } from '@/lib/store';
 import axios, { AxiosError } from 'axios';
-import { NextApiResponse } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
-import React, { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {useForm} from 'react-hook-form';
 import { BiLogIn } from 'react-icons/bi';
-import { FaFlorinSign } from 'react-icons/fa6';
-
 
 type LoginForm = {
   username: string,
@@ -20,10 +17,11 @@ type LoginForm = {
 type ApiResponseError = {
   msg: string
 }
-const page = () => {
+const LoginPage = () => {
   const dispatch = useAppDispatch()
   const {register, handleSubmit, formState, setError} = useForm<LoginForm>();
   const [apiError, setApiError] = useState("");
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const router = useRouter()
   const onSubmit = async (data: LoginForm) => {
     try {
@@ -37,11 +35,17 @@ const page = () => {
       const axErr = err as AxiosError<ApiResponseError>;
       console.log(axErr.response?.data?.msg);
       if(axErr.response?.data?.msg) setApiError(axErr.response.data.msg)
-      setTimeout(() => {
+      timerRef.current = setTimeout(() => {
         setApiError("")
       }, 3500);
     }
   }
+
+  useEffect(() => {
+    return () => {
+      if(timerRef.current) clearTimeout(timerRef.current);
+    }
+  }, []);
 
   return (
     <div className='w-full h-screen flex flex-col items-center justify-center bg-slate-200'>
@@ -94,4 +98,4 @@ const page = () => {
   )
 }
 
-export default page
+export default LoginPage
