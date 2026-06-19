@@ -9,7 +9,7 @@ import { BiSave } from "react-icons/bi";
 import TextAlign from '@tiptap/extension-text-align';
 import {FontSize, TextStyle} from "@tiptap/extension-text-style";
 import { useState } from "react";
-import { IoEllipsisHorizontal, IoExpand, IoRefresh, IoSparkles, IoSparklesSharp } from "react-icons/io5";
+import { IoAddCircle, IoEllipsisHorizontal, IoExpand, IoRefresh, IoSparkles, IoSparklesSharp } from "react-icons/io5";
 import axios from "axios";
 
 function ToolbarButton({
@@ -136,7 +136,7 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
   const addSuggestionToText = (st: string) => {
     editor.chain().focus().insertContentAt(editor.state.doc.content.size,  " " + st).run()
   }
-  
+
   return (
     <div className="w-full h-screen px-4 py-6 bg-gradient-to-b from-indigo-50/50 to-white">
       <input
@@ -267,12 +267,21 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
                 <button 
                   className='p-1 shadow-md border rounded-xl border-[#888] text-[#2f54a5] cursor-pointer'
                   onClick={() => {
+                    addSuggestionToText(st)
+                  }}
+                >
+                  <IoAddCircle  size={25}/>
+                </button>
+                <button 
+                  className='p-1 shadow-md border rounded-xl border-[#888] text-[#2f54a5] cursor-pointer'
+                  onClick={() => {
                     const text = editor?.getText()
                     getExpantion(text,st);
                   }}
                 >
                   <IoEllipsisHorizontal  size={25}/>
                 </button>
+                
                 <button 
                   className='p-1 shadow-md border rounded-xl border-[#888] text-[#2f54a5] cursor-pointer'
                   onClick={() => {
