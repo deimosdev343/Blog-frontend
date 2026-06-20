@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import Page from './page';
-import {describe, expect, it, test} from '@jest/globals';
+import {describe, it, test} from '@jest/globals';
 import axios from 'axios';
 import FullPostComponent from '@/components/posts/FullPostComponent';
 
@@ -45,8 +45,7 @@ describe('FullPostComponent rendering', () => {
   })
   it('renders post HTML content', async () => {
     render(<FullPostComponent {...defaultProps} />);
-    const contentDiv = screen.getByText("Hello World");
-    expect(contentDiv).toContainHTML('<p>Hello World</p>');
+    expect(screen.getByText("Hello World")).toContainHTML('<p>Hello World</p>');
   });
   it('renders the avatar with the provided URL', async () => {
     render(<FullPostComponent {...defaultProps} />);
