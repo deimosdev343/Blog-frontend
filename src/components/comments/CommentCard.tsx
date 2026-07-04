@@ -3,7 +3,7 @@ import React from 'react'
 import DefaultAvatar from '../../static/user.png';
 import Image from 'next/image';
 import dayjs from 'dayjs';
-import { Comment } from '@/types/commenyTypes';
+import { Comment } from '@/types/commentTypes';
 
 
 function isValidUrl(url: string): boolean {

@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 import CommentCard from './CommentCard'
 import { FaPlus, FaPlusCircle } from 'react-icons/fa'
 import CreateCommentModal from './modals/CreateCommentModal'
-import { Comment } from '@/types/commenyTypes'
+import { Comment } from '@/types/commentTypes'
 
 type CommentBoxProps = {
   post_id: number
