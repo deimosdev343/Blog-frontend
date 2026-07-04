@@ -22,12 +22,12 @@ const CommentCard = ({comment} :{comment: Comment}) => {
       shadow-md  transition-all duration-300 p-6 flex flex-col gap-3 border border-gray-200"
     >
       <Link 
-        href={`/profilePage/${comment.author_id}`} 
+        href={`/profilePage/${comment.author.id}`} 
         className="flex items-center gap-3 w-full"
       >
 
         <Image
-          src={(comment.user_avatar && isValidUrl(comment.user_avatar)) ? comment.user_avatar : DefaultAvatar}
+          src={(comment.user_avatar && isValidUrl(comment.author.avatar_url)) ? comment.user_avatar : DefaultAvatar}
           width={40}
           height={40}
           alt="avatar"
@@ -35,7 +35,7 @@ const CommentCard = ({comment} :{comment: Comment}) => {
         />
 
         <p className="font-semibold text-gray-800 text-lg hover:underline">
-          {comment.username}
+          {comment.author.username}
         </p>
       </Link>
       <div className='w-full flex flex-col p-2 gap-2'>
