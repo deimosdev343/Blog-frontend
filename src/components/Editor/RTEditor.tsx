@@ -11,6 +11,7 @@ import {FontSize, TextStyle} from "@tiptap/extension-text-style";
 import { useState } from "react";
 import { IoAddCircle, IoEllipsisHorizontal, IoExpand, IoRefresh, IoSparkles, IoSparklesSharp } from "react-icons/io5";
 import axios from "axios";
+import { BubbleMenu } from "@tiptap/react/menus";
 
 function ToolbarButton({
   onClick,
