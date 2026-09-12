@@ -35,6 +35,35 @@ function ToolbarButton({
     </button>
   );
 }
+ 
+function BubbleButton({
+  onClick,
+  label,
+  disabled,
+  pending,
+}: {
+  onClick: () => void;
+  label: string;
+  disabled?: boolean;
+  pending?: boolean;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      className={`px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap
+        transition-colors duration-150 focus:outline-none focus-visible:ring-2
+        focus-visible:ring-indigo-400 disabled:cursor-not-allowed
+        ${
+          pending
+            ? "bg-indigo-100 text-[#2f54a5]"
+            : "text-[#2f54a5] hover:bg-indigo-50 disabled:opacity-40"
+        }`}
+    >
+      {pending ? `${label}…` : label}
+    </button>
+  );
+}
 
 type QuickAction = "improve" | "shorten" | "expand" | "grammar";
 type Tone = "professional" | "casual" | "confident" | "plain";
@@ -109,6 +138,64 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
       setExpantionState({loading: false, expandedText:"",  error: "Try Again Later"});
     }
   }
+  const transformSelection = async (
+    action: QuickAction | "tone",
+    tone?: Tone
+  ) => {
+    if (!editor) return; 
+    const { from, to, empty } = editor.state.selection;
+    if (empty) return;
+
+    const selected = editor.state.doc.textBetween(from, to, " ").trim();
+    if (!selected) return;
+
+    transformAbort.current?.abort();
+    const controller = new AbortController();
+    transformAbort.current = controller;
+
+    setTransformState({ pending: tone ?? (action as QuickAction), error: "" });
+    setToneOpen(false);
+
+        try {
+      const full = editor.getText();
+      const res = await axios.post(
+        "/api/ai/transform",
+        {
+          text: selected,
+          action,
+          tone,
+          context: full.slice(0, CONTEXT_CHARS),
+        },
+        { signal: controller.signal }
+      );
+ 
+      const result: string = res.data?.result ?? "";
+      if (!result.trim()) {
+        throw new Error("empty result");
+      }
+ 
+      // One chained transaction, so a single Ctrl+Z puts the original back
+      // and the rewritten text stays selected for a follow-up action.
+      editor
+        .chain()
+        .focus()
+        .insertContentAt({ from, to }, result)
+        .setTextSelection({ from, to: from + result.length })
+        .run();
+ 
+      setTransformState({ pending: null, error: "" });
+    } catch (err) {
+      if (axios.isCancel(err)) return;
+      setTransformState({
+        pending: null,
+        error: "That edit didn't go through. Try again.",
+      });
+      setTimeout(
+        () => setTransformState((s) => ({ ...s, error: "" })),
+        3000
+      );
+    }
+  }
 
   const [title, setTitle] = useState("");
   const [fontSize, setFontSize] = useState(24);
@@ -158,12 +245,13 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
     }
   })
   
-  if(!editor) return null;
   useEffect(() => () => transformAbort.current?.abort(), []);
+  
+  if(!editor) return null;
   const addSuggestionToText = (st: string) => {
     editor.chain().focus().insertContentAt(editor.state.doc.content.size,  " " + st).run()
   }
-
+  const busy = transformState.pending !== null;
   return (
     <div className="w-full h-screen px-4 py-6 bg-gradient-to-b from-indigo-50/50 to-white">
       <input
@@ -271,6 +359,64 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
         </div>
       </div>
       </div>
+            <BubbleMenu
+        editor={editor}
+        options={{ offset: 8, placement: "top" }}
+        shouldShow={({ editor, from, to }) =>
+          editor.isEditable &&
+          to - from > 2 &&
+          !editor.isActive("codeBlock") &&
+          !editor.isActive("image")
+        }
+      >
+        {/* preventDefault keeps the ProseMirror selection intact on click */}
+        <div
+          onMouseDown={(e) => e.preventDefault()}
+          className="flex flex-col gap-1 rounded-xl border border-slate-400/30 bg-white p-1 shadow-lg"
+        >
+          <div className="flex items-center gap-1">
+            <IoSparkles className="ml-2 mr-1 text-[#2f54a5]" size={14} />
+            {QUICK_ACTIONS.map((a) => (
+              <BubbleButton
+                key={a.id}
+                label={a.label}
+                disabled={busy}
+                pending={transformState.pending === a.id}
+                onClick={() => transformSelection(a.id)}
+              />
+            ))}
+ 
+            <span className="w-px h-5 bg-slate-300/70 mx-1" />
+ 
+            <BubbleButton
+              label={toneOpen ? "Tone ▴" : "Tone ▾"}
+              disabled={busy}
+              onClick={() => setToneOpen((v) => !v)}
+            />
+          </div>
+ 
+          {toneOpen && (
+            <div className="flex items-center gap-1 border-t border-slate-200 pt-1">
+              {TONES.map((t) => (
+                <BubbleButton
+                  key={t.id}
+                  label={t.label}
+                  disabled={busy}
+                  pending={transformState.pending === t.id}
+                  onClick={() => transformSelection("tone", t.id)}
+                />
+              ))}
+            </div>
+          )}
+ 
+          {transformState.error && (
+            <p className="px-3 py-1 text-xs text-red-600">
+              {transformState.error}
+            </p>
+          )}
+        </div>
+      </BubbleMenu>
+
       <EditorContent editor={editor} />
       <div className="w-full flex flex-col items-start p-1 gap-2">
         <button
