@@ -8,7 +8,7 @@ import Image from "@tiptap/extension-image";
 import { BiSave } from "react-icons/bi";
 import TextAlign from '@tiptap/extension-text-align';
 import {FontSize, TextStyle} from "@tiptap/extension-text-style";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { IoAddCircle, IoEllipsisHorizontal, IoExpand, IoRefresh, IoSparkles, IoSparklesSharp } from "react-icons/io5";
 import axios from "axios";
 import { BubbleMenu } from "@tiptap/react/menus";
@@ -122,6 +122,14 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
     expandedText:"",
     error:""
   });
+  const [transformState, setTransformState] = useState<{
+    pending: QuickAction | Tone | null;
+    error: string;
+  }>({ pending: null, error: "" });
+ 
+  const [toneOpen, setToneOpen] = useState(false);
+ 
+  const transformAbort = useRef<AbortController | null>(null);
 
   const editor = useEditor({
     extensions: [
@@ -149,9 +157,9 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
       }
     }
   })
-
+  
   if(!editor) return null;
-
+  useEffect(() => () => transformAbort.current?.abort(), []);
   const addSuggestionToText = (st: string) => {
     editor.chain().focus().insertContentAt(editor.state.doc.content.size,  " " + st).run()
   }
