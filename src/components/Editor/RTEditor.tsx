@@ -36,9 +36,28 @@ function ToolbarButton({
   );
 }
 
+type QuickAction = "improve" | "shorten" | "expand" | "grammar";
+type Tone = "professional" | "casual" | "confident" | "plain";
+ 
+const QUICK_ACTIONS: { id: QuickAction; label: string }[] = [
+  { id: "improve", label: "Improve" },
+  { id: "shorten", label: "Shorten" },
+  { id: "expand", label: "Expand" },
+  { id: "grammar", label: "Fix grammar" },
+];
+
+ 
+const TONES: { id: Tone; label: string }[] = [
+  { id: "professional", label: "Professional" },
+  { id: "casual", label: "Casual" },
+  { id: "confident", label: "Confident" },
+  { id: "plain", label: "Plain" },
+];
+
+const CONTEXT_CHARS = 4000;
+ 
+
 const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise<void>}) => {
-
-
   const getSuggestionFunc = () => {
     const text = editor?.getText();
     getSuggestions(text)
@@ -108,10 +127,9 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
     extensions: [
       StarterKit.configure({
         heading:{levels: [1,2]},
+        link: {openOnClick: true}
       }),
-      Link.configure({
-        openOnClick: true
-      }),
+      
       Image,
       Placeholder.configure({
         placeholder:"Share your thoughts..."
