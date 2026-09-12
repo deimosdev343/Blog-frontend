@@ -13,7 +13,9 @@ const MAX_CONTEXT = 4000;
 
 export const POST = async (req: NextRequest) => {
   try {
-    
+    const body = await req.json();
+    const { text, action, tone, context } = body ?? {};
+        
   } catch (err) {
     console.error(err);
     const axErr = err as AxiosError<ApiResponseError>;
