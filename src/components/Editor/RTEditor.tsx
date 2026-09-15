@@ -52,8 +52,8 @@ function BubbleButton({
     <button
       onClick={onClick}
       disabled={disabled}
-      className={`px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap
-        transition-colors duration-150 focus:outline-none focus-visible:ring-2
+      className={`px-3 py-1.5 rounded-lg text-sm whitespace-nowrap
+        transition-colors duration-150 font-bold focus:outline-none focus-visible:ring-2
         focus-visible:ring-indigo-400 disabled:cursor-not-allowed
         ${
           pending
@@ -397,7 +397,7 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
           </div>
  
           {toneOpen && (
-            <div className="flex items-center gap-1 border-t border-slate-200 pt-1">
+            <div className="flex items-center gap-1 border-t font-bold border-slate-200 pt-1">
               {TONES.map((t) => (
                 <BubbleButton
                   key={t.id}
@@ -421,7 +421,7 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
       <EditorContent editor={editor} />
       <div className="w-full flex flex-col items-start p-1 gap-2">
         <button
-          className="flex items-center gap-2 border border-slate-400/40 text-[#2f54a5] font-bold 
+          className="flex items-center gap-2 border border-slate-400/40 text-[#2f54a5] font-bold! 
             hover:bg-slate-100 px-6 py-3 mt-4 rounded-xl cursor-pointer
             transition-all duration-500 shadow-md hover:shadow-lg"
           onClick={getSuggestionFunc}
