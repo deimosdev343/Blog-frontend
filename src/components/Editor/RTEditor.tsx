@@ -12,6 +12,7 @@ import { useEffect, useRef, useState } from "react";
 import { IoAddCircle, IoEllipsisHorizontal, IoExpand, IoRefresh, IoSparkles, IoSparklesSharp } from "react-icons/io5";
 import axios from "axios";
 import { BubbleMenu } from "@tiptap/react/menus";
+import { FaPencil } from 'react-icons/fa6';
 
 function ToolbarButton({
   onClick,
@@ -359,7 +360,7 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
         </div>
       </div>
       </div>
-            <BubbleMenu
+      <BubbleMenu
         editor={editor}
         options={{ offset: 8, placement: "top" }}
         shouldShow={({ editor, from, to }) =>
@@ -375,7 +376,7 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
           className="flex flex-col gap-1 rounded-xl border border-slate-400/30 bg-white p-1 shadow-lg"
         >
           <div className="flex items-center gap-1">
-            <IoSparkles className="ml-2 mr-1 text-[#2f54a5]" size={14} />
+            <FaPencil className="ml-2 mr-1 text-[#2f54a5]" size={16} />
             {QUICK_ACTIONS.map((a) => (
               <BubbleButton
                 key={a.id}
@@ -420,8 +421,8 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
       <EditorContent editor={editor} />
       <div className="w-full flex flex-col items-start p-1 gap-2">
         <button
-          className="flex items-center gap-2 border border-slate-400/40 text-[#2f54a5] 
-            hover:bg-slate-100  font-semibold px-6 py-3 mt-4 rounded-xl cursor-pointer
+          className="flex items-center gap-2 border border-slate-400/40 text-[#2f54a5] font-bold 
+            hover:bg-slate-100 px-6 py-3 mt-4 rounded-xl cursor-pointer
             transition-all duration-500 shadow-md hover:shadow-lg"
           onClick={getSuggestionFunc}
         >
