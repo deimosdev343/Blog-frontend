@@ -481,7 +481,7 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
                 <button 
                   className='p-1 shadow-md border rounded-xl border-[#888] text-[#2f54a5] cursor-pointer'
                   onClick={() => {
-                    getSuggestions(st);
+                    getSuggestions(editor.getHTML());
                   }}
                 >
                   <IoRefresh  size={25}/>
