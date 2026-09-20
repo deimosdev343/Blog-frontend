@@ -1,4 +1,5 @@
 import axios, { AxiosError } from "axios";
+import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
  
 type ApiResponseError = {
@@ -30,13 +31,19 @@ export const POST = async (req: NextRequest) => {
     if (action === "tone" && !TONES.includes(tone)) {
       return NextResponse.json({ msg: "Unknown tone." }, { status: 400 });
     }
-
-    const backendRes = await axios.post(`${process.env.BACKEND_API}/ai/transform`, {
-      text,
-      action,
-      tone: action === "tone" ? tone : undefined,
-      context: typeof context === "string" ? context.slice(0, MAX_CONTEXT) : "",
-    });
+    const cks = await cookies();
+    const token =  cks.get("token")?.value;
+    const backendRes = await axios.post(`${process.env.BACKEND_API}/ai/transform`, 
+      {
+        text,
+        action,
+        tone: action === "tone" ? tone : undefined,
+        context: typeof context === "string" ? context.slice(0, MAX_CONTEXT) : "",
+      },
+      {
+        headers:{Authorization: `bearer ${token}`}
+      }
+    );
     return NextResponse.json(backendRes.data, { status: 200 });
 
   } catch (err) {
