@@ -87,11 +87,14 @@ const TONES: { id: Tone; label: string }[] = [
 const CONTEXT_CHARS = 4000;
  
 
-const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise<void>}) => {
+const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise<boolean>}) => {
+  const [saveState, setSaveState] = useState({ saving: false, error: "" })
+  
   const getSuggestionFunc = () => {
     const text = editor?.getText();
     getSuggestions(text)
   }
+  
   const getSuggestions = async (text:string | undefined) => {
     try {
       setSuggestionState({
@@ -249,6 +252,24 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
   useEffect(() => () => transformAbort.current?.abort(), []);
   
   if(!editor) return null;
+
+  
+  const hanldeSave = async () => {
+    if(saveState.saving) return;
+    setSaveState({saving: true, error: ""});
+    const ok = await onSave(title, editor.getHTML());
+    if(ok) {
+      editor.commands.setContent("");
+      setTitle("");
+      setSaveState({saving:false, error: ""});
+    } else {
+      setSaveState({
+        saving:false,
+        error: `Couldn't save, try again in a bit`
+      });
+    }
+  }
+
   const addSuggestionToText = (st: string) => {
     editor.chain().focus().insertContentAt(editor.state.doc.content.size,  " " + st).run()
   }
@@ -498,22 +519,20 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
       </div>
       <div className="w-full flex items-center p-2 mt-6">
         <button
+          disabled={saveState.saving}
           className="flex items-center gap-2 border border-slate-400/40 text-[#2f54a5] 
             hover:bg-slate-100  font-semibold px-6 py-3 mt-4 rounded-xl cursor-pointer
             transition-all duration-500 shadow-md hover:shadow-lg active:scale-95"
-          onClick={() => {
-            onSave(title, editor.getHTML());
-            editor.commands.setContent("");
-            setTitle("");
-            
-          }}
+          onClick={hanldeSave}
         >
           <div className="bg-indigo-100 p-2 rounded-xl">
             <BiSave size={20}/>
           </div>
-          <span className="mt-1">Save Post</span>
+          <span className="mt-1">{saveState.saving ? "Saving..." : "Save Post"}</span>
         </button>
-
+        {saveState.error && (
+          <p className='text-red-600 text-sm mt-2 px-2'>{saveState.error}</p>
+        )}
       </div>
     </div>
   )

@@ -20,12 +20,10 @@ const EditorComponent = () => {
         content
       });
       setShowSuccessModal({success: true, show: true});
+      return true;
     } catch (err) {
       console.log(err);
-      setErr("Internal Server Error");
-      setTimeout(() => {
-        setErr("")
-      }, 3000)
+      return false;
     }
   }
 
