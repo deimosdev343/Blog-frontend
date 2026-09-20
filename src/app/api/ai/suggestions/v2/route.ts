@@ -7,14 +7,15 @@ type ApiResponseError = {
 
 export const POST = async (req: NextRequest) => {
   try {
-    // const cks = await cookies();
-    // const token =  cks.get("token")?.value;
+    const cks = await cookies();
+    const token =  cks.get("token")?.value;
     const body = await req.json();
 
     const backendRes = await axios.post(
       `${process.env.BACKEND_API}/ai/suggests/v2`,
       body,
       {
+        headers:{Authorization: `bearer ${token}`}
       }
     );
     return NextResponse.json(

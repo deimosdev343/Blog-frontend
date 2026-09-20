@@ -446,7 +446,8 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
                 >
                   <IoAddCircle  size={25}/>
                 </button>
-                <button 
+                {/* Hiding this until I can fix the api or put up something better altogether */}
+                {/* <button 
                   className='p-1 shadow-md border rounded-xl border-[#888] text-[#2f54a5] cursor-pointer'
                   onClick={() => {
                     const text = editor?.getText()
@@ -454,7 +455,7 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
                   }}
                 >
                   <IoEllipsisHorizontal  size={25}/>
-                </button>
+                </button> */}
                 
                 <button 
                   className='p-1 shadow-md border rounded-xl border-[#888] text-[#2f54a5] cursor-pointer'
