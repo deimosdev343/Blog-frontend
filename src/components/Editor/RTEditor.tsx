@@ -453,7 +453,7 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
         {suggestionState.loading && <div className="flex flex-col w-full items-center gap-5 justify-between shadow-md p-5 border border-slate-400/20 mb-2 rounded-xl bg-white">
           <OrbitProgress color="#666" size="medium" text="" textColor="" />  
         </div>}
-        {!suggestionState.loading && suggestionState.suggestionList?.length > 1 && 
+        {!suggestionState.loading && suggestionState.suggestionList?.length > 0 && 
           <div className="flex flex-col w-full items-center gap-5 justify-between shadow-md p-5 border border-slate-400/20 mb-2 rounded-xl bg-white">
             {suggestionState.suggestionList.map(st => <div className='flex items-center justify-between p-2 w-full border 
               border-slate-500/20 mb-1 rounded-lg shadow-md'>
