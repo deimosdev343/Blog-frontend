@@ -160,7 +160,7 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
     setTransformState({ pending: tone ?? (action as QuickAction), error: "" });
     setToneOpen(false);
 
-        try {
+    try {
       const full = editor.getText();
       const res = await axios.post(
         "/api/ai/transform",
@@ -217,7 +217,23 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
     pending: QuickAction | Tone | null;
     error: string;
   }>({ pending: null, error: "" });
- 
+  const fontSizeCommit = useRef<ReturnType<typeof setTimeout> | null>(null);
+  
+  useEffect(() => {
+    transformAbort.current?.abort();
+    if(fontSizeCommit.current) clearTimeout(fontSizeCommit.current);
+  }, []) 
+
+  const applyFontSize = (raw: number) => {
+    const size = Math.max(1, Math.min(250, raw));
+    setFontSize(size);
+
+    if(fontSizeCommit.current) clearTimeout(fontSizeCommit.current);
+    fontSizeCommit.current = setTimeout(() => {
+      editor?.chain().setFontSize(`${size}px`).run();
+    }, 120)
+  }
+
   const [toneOpen, setToneOpen] = useState(false);
  
   const transformAbort = useRef<AbortController | null>(null);
