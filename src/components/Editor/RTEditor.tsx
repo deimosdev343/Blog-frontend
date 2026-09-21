@@ -14,6 +14,8 @@ import axios from "axios";
 import { BubbleMenu } from "@tiptap/react/menus";
 import { FaPencil } from 'react-icons/fa6';
 
+const DEFAULT_FONT_SIZE = 16;
+
 function ToolbarButton({
   onClick,
   active,
@@ -202,7 +204,9 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
   }
 
   const [title, setTitle] = useState("");
-  const [fontSize, setFontSize] = useState(24);
+  const [fontSize, setFontSize] = useState(DEFAULT_FONT_SIZE);
+  const fontSizeCommit = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   const [suggestionState, setSuggestionState] = useState({
     loading: false,
     suggestionList: [],
@@ -217,7 +221,6 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
     pending: QuickAction | Tone | null;
     error: string;
   }>({ pending: null, error: "" });
-  const fontSizeCommit = useRef<ReturnType<typeof setTimeout> | null>(null);
   
   useEffect(() => {
     transformAbort.current?.abort();
