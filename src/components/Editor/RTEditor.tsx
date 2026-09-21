@@ -368,14 +368,8 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
                 type="range"
                 min="1"
                 max="250"
-                defaultValue={fontSize}
-                onChange={(e) => {
-                }}
-                onMouseUp={(e: React.MouseEvent<HTMLInputElement>) => {
-                  const size = parseInt(e.currentTarget.value);
-                  setFontSize(size);
-                  editor.chain().focus().setFontSize(`${size}px`).run();
-                }}
+                value={fontSize}
+                onChange={(e) => applyFontSize(e.currentTarget.valueAsNumber)}
                 className="w-full h-2 bg-gray-200 rounded-lg appearance-auto cursor-pointer accent-[#2f54a5]"
               />
             </div>
@@ -384,9 +378,9 @@ const RTEditor = ({onSave} :{onSave: (title: string, content: string) => Promise
                 type="number"
                 value={fontSize}
                 onChange={(e) => {
-                  const size = Math.max(1, Math.min(250, parseInt(e.target.value) || 1));
-                  setFontSize(size);
-                  editor.chain().focus().setFontSize(`${size}px`).run();
+                  const next = parseInt(e.currentTarget.value, 10);
+                  if (Number.isNaN(next)) return;
+                  applyFontSize(next);
                 }}
                 min="1"
                 max="250"
